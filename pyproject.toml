@@ -6,13 +6,9 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "markdown-it-py>=4.0.0",
+    "pdoc>=16.0.0",
     "pytest>=9.0.2",
 ]
 
 [project.scripts]
 pymarkdoc-docs = "pymarkdoc._docs:main"
-
-[dependency-groups]
-dev = [
-    "pdoc>=16.0.0",
-]
