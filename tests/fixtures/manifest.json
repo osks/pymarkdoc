@@ -1,7 +1,7 @@
 [
   {"name": "basic"},
   {"name": "annotation"},
-  {"name": "tags"},
+  {"name": "tags", "config": "custom_tag"},
   {"name": "interpolation", "config": "interpolation"},
   {"name": "table"},
   {"name": "code"},

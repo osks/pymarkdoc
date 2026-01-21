@@ -1,0 +1,46 @@
+{
+  "type": "document",
+  "attributes": {},
+  "children": [
+    {
+      "type": "heading",
+      "attributes": {
+        "level": 1
+      },
+      "children": [
+        {
+          "type": "inline",
+          "attributes": {},
+          "children": [
+            {
+              "type": "text",
+              "attributes": {
+                "content": "Hello"
+              },
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "attributes": {},
+      "children": [
+        {
+          "type": "inline",
+          "attributes": {},
+          "children": [
+            {
+              "type": "text",
+              "attributes": {
+                "content": "Simple text."
+              },
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

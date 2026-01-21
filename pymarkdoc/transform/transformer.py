@@ -30,11 +30,11 @@ def transform(node: Node | List[Node], config: Dict[str, Any] | None = None):
     if node.type in ("variable", "function"):
         return node.attributes.get("value") if node.attributes else None
     if node.type == "softbreak":
-        return "\n"
+        return " "
     if node.type == "code":
-        return _render_code(node, None)
+        return _render_code(node, None, fenced=False)
     if node.type == "fence":
-        return _render_code(node, node.attributes.get("language"))
+        return _render_code(node, node.attributes.get("language"), fenced=True)
 
     schema = _find_schema(node, cfg)
     if schema and callable(schema.get("transform")):
@@ -42,7 +42,12 @@ def transform(node: Node | List[Node], config: Dict[str, Any] | None = None):
 
     if node.type == "list":
         name = "ol" if node.attributes.get("ordered") else "ul"
-        return Tag(name, _render_attributes(node, schema), _transform_children(node, cfg))
+        return Tag(name, {}, _transform_children(node, cfg))
+    if node.type == "item":
+        children = node.children
+        if len(children) == 1 and isinstance(children[0], Node) and children[0].type == "paragraph":
+            return Tag("li", _render_attributes(node, schema), _transform_children(children[0], cfg))
+        return Tag("li", _render_attributes(node, schema), _transform_children(node, cfg))
 
     if schema is None:
         if node.type == "tag":
@@ -91,9 +96,11 @@ def _render_attributes(node: Node, schema: Dict[str, Any] | None) -> Dict[str, A
     return rendered
 
 
-def _render_code(node: Node, language: str | None):
+def _render_code(node: Node, language: str | None, *, fenced: bool):
     """Render fenced or indented code blocks."""
-    code_attrs: Dict[str, Any] = {}
-    if language:
-        code_attrs["class"] = f"language-{language}"
-    return Tag("pre", {}, [Tag("code", code_attrs, [node.content or ""])])
+    if fenced:
+        attrs: Dict[str, Any] = {}
+        if language:
+            attrs["data-language"] = language
+        return Tag("pre", attrs, [node.content or ""])
+    return Tag("pre", {}, [node.content or ""])

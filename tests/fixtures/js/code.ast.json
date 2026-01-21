@@ -1,0 +1,22 @@
+{
+  "type": "document",
+  "attributes": {},
+  "children": [
+    {
+      "type": "fence",
+      "attributes": {
+        "content": "const x = 1;\n",
+        "language": "js"
+      },
+      "children": [
+        {
+          "type": "text",
+          "attributes": {
+            "content": "const x = 1;\n"
+          },
+          "children": []
+        }
+      ]
+    }
+  ]
+}

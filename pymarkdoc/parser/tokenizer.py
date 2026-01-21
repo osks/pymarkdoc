@@ -11,4 +11,22 @@ class Tokenizer:
         self.parser.disable(["lheading", "code"])
 
     def tokenize(self, content: str):
-        return self.parser.parse(content, {})
+        normalized = _normalize_block_tags(content)
+        return self.parser.parse(normalized, {})
+
+
+def _normalize_block_tags(content: str) -> str:
+    lines = content.splitlines()
+    output: list[str] = []
+    for idx, line in enumerate(lines):
+        stripped = line.strip()
+        is_tag_line = stripped.startswith("{%") and stripped.endswith("%}") and stripped != "{%%}"
+        if is_tag_line:
+            if output and output[-1].strip() != "":
+                output.append("")
+            output.append(line)
+            if idx + 1 < len(lines) and lines[idx + 1].strip() != "":
+                output.append("")
+            continue
+        output.append(line)
+    return "\n".join(output)

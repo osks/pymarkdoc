@@ -1,0 +1,112 @@
+{
+  "type": "document",
+  "attributes": {},
+  "children": [
+    {
+      "type": "table",
+      "attributes": {},
+      "children": [
+        {
+          "type": "thead",
+          "attributes": {},
+          "children": [
+            {
+              "type": "tr",
+              "attributes": {},
+              "children": [
+                {
+                  "type": "th",
+                  "attributes": {},
+                  "children": [
+                    {
+                      "type": "inline",
+                      "attributes": {},
+                      "children": [
+                        {
+                          "type": "text",
+                          "attributes": {
+                            "content": "a"
+                          },
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "th",
+                  "attributes": {},
+                  "children": [
+                    {
+                      "type": "inline",
+                      "attributes": {},
+                      "children": [
+                        {
+                          "type": "text",
+                          "attributes": {
+                            "content": "b"
+                          },
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "tbody",
+          "attributes": {},
+          "children": [
+            {
+              "type": "tr",
+              "attributes": {},
+              "children": [
+                {
+                  "type": "td",
+                  "attributes": {},
+                  "children": [
+                    {
+                      "type": "inline",
+                      "attributes": {},
+                      "children": [
+                        {
+                          "type": "text",
+                          "attributes": {
+                            "content": "c"
+                          },
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "td",
+                  "attributes": {},
+                  "children": [
+                    {
+                      "type": "inline",
+                      "attributes": {},
+                      "children": [
+                        {
+                          "type": "text",
+                          "attributes": {
+                            "content": "d"
+                          },
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

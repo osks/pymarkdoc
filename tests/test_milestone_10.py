@@ -62,7 +62,7 @@ const x = 1;
     ast = Markdoc.parse(source)
     content = Markdoc.transform(ast)
     html = Markdoc.renderers.html(content)
-    assert html == '<pre><code class="language-js">const x = 1;\n</code></pre>'
+    assert html == '<pre data-language="js">const x = 1;\n</pre>'
 
 
 def test_link_and_image():

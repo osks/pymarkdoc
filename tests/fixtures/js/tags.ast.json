@@ -1,0 +1,34 @@
+{
+  "type": "document",
+  "attributes": {},
+  "children": [
+    {
+      "type": "tag",
+      "tag": "note",
+      "attributes": {
+        "title": "A"
+      },
+      "children": [
+        {
+          "type": "paragraph",
+          "attributes": {},
+          "children": [
+            {
+              "type": "inline",
+              "attributes": {},
+              "children": [
+                {
+                  "type": "text",
+                  "attributes": {
+                    "content": "Body"
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

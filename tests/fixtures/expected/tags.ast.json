@@ -2,49 +2,29 @@
   "attributes": {},
   "children": [
     {
-      "attributes": {},
+      "attributes": {
+        "title": "A"
+      },
       "children": [
         {
-          "attributes": {
-            "title": "A"
-          },
-          "children": [],
+          "attributes": {},
+          "children": [
+            {
+              "attributes": {},
+              "children": [],
+              "content": "Body",
+              "tag": null,
+              "type": "text"
+            }
+          ],
           "content": null,
-          "tag": "note",
-          "type": "tag"
-        },
-        {
-          "attributes": {},
-          "children": [],
-          "content": "\n",
           "tag": null,
-          "type": "softbreak"
-        },
-        {
-          "attributes": {},
-          "children": [],
-          "content": "Body",
-          "tag": null,
-          "type": "text"
-        },
-        {
-          "attributes": {},
-          "children": [],
-          "content": "\n",
-          "tag": null,
-          "type": "softbreak"
-        },
-        {
-          "attributes": {},
-          "children": [],
-          "content": "{% /note %}",
-          "tag": null,
-          "type": "text"
+          "type": "paragraph"
         }
       ],
       "content": null,
-      "tag": null,
-      "type": "paragraph"
+      "tag": "note",
+      "type": "tag"
     }
   ],
   "content": null,

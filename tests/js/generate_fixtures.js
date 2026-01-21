@@ -24,7 +24,18 @@ function fixtureConfigs() {
   return {
     interpolation: {
       variables: { name: "Ada" },
-      functions: { sum: (a, b) => a + b },
+      functions: {
+        sum: {
+          transform: (parameters) => {
+            const values = Object.values(parameters || {});
+            const numbers = values.filter((value) => typeof value === "number");
+            return numbers.reduce((total, value) => total + value, 0);
+          },
+        },
+      },
+    },
+    custom_tag: {
+      tags: { note: { render: "note", attributes: { title: {} } } },
     },
   };
 }
