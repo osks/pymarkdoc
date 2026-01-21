@@ -1,0 +1,25 @@
+from __future__ import annotations
+
+nodes = {
+    "document": {"render": None},
+    "paragraph": {"render": "p"},
+    "heading": {"render": "h{level}", "attributes": {"level": {"render": False}}},
+    "em": {"render": "em"},
+    "strong": {"render": "strong"},
+    "link": {"render": "a"},
+    "image": {"render": "img", "self_closing": True},
+    "list": {"render": None},
+    "item": {"render": "li"},
+    "blockquote": {"render": "blockquote"},
+    "code": {"render": "pre"},
+    "fence": {"render": "pre"},
+    "hr": {"render": "hr", "self_closing": True},
+    "table": {"render": "table"},
+    "thead": {"render": "thead"},
+    "tbody": {"render": "tbody"},
+    "tr": {"render": "tr"},
+    "th": {"render": "th"},
+    "td": {"render": "td"},
+    "softbreak": {"render": None},
+    "hardbreak": {"render": "br", "self_closing": True},
+}
