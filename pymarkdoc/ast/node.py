@@ -9,6 +9,7 @@ from .variable import Variable
 
 @dataclass
 class Node:
+    """AST node for parsed Markdoc content."""
     type: str
     children: List["Node"] = field(default_factory=list)
     attributes: Dict[str, Any] = field(default_factory=dict)
@@ -16,6 +17,7 @@ class Node:
     content: Optional[str] = None
 
     def resolve(self, config: Any) -> "Node":
+        """Resolve variables/functions in this node and its children."""
         self.attributes = _resolve_value(self.attributes, config)
         resolved_children = []
         for child in self.children:
@@ -27,6 +29,7 @@ class Node:
         return self
 
     def transform(self, config: Any) -> Any:
+        """Transform the node into a renderable tree."""
         from ..transform.transformer import transform
 
         return transform(self, config)

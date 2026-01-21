@@ -9,6 +9,7 @@ from ..schema.tags import tags as default_tags
 
 
 def merge_config(config: Dict[str, Any] | None = None) -> Dict[str, Any]:
+    """Merge user config with default nodes/tags."""
     config = config or {}
     return {
         **config,
@@ -18,6 +19,7 @@ def merge_config(config: Dict[str, Any] | None = None) -> Dict[str, Any]:
 
 
 def transform(node: Node | List[Node], config: Dict[str, Any] | None = None):
+    """Transform AST nodes into a renderable tree."""
     cfg = merge_config(config)
     if isinstance(node, list):
         return [transform(child, cfg) for child in node]
@@ -90,6 +92,7 @@ def _render_attributes(node: Node, schema: Dict[str, Any] | None) -> Dict[str, A
 
 
 def _render_code(node: Node, language: str | None):
+    """Render fenced or indented code blocks."""
     code_attrs: Dict[str, Any] = {}
     if language:
         code_attrs["class"] = f"language-{language}"

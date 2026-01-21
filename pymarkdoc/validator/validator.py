@@ -7,6 +7,7 @@ from ..transform.transformer import merge_config
 
 
 def validate_tree(node: Node | List[Node], config: Dict[str, Any] | None = None) -> List[Dict[str, Any]]:
+    """Validate nodes against schema rules."""
     cfg = merge_config(config)
     errors: List[Dict[str, Any]] = []
     _validate_node(node, cfg, errors)
@@ -14,6 +15,7 @@ def validate_tree(node: Node | List[Node], config: Dict[str, Any] | None = None)
 
 
 def _validate_node(node: Node | List[Node], config: Dict[str, Any], errors: List[Dict[str, Any]]):
+    """Recursively validate nodes and collect errors."""
     if isinstance(node, list):
         for child in node:
             _validate_node(child, config, errors)

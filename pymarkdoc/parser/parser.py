@@ -12,6 +12,7 @@ from .tag_parser import TagInfo, parse_tag_content
 
 
 def parse(tokens: List[Token]) -> Node:
+    """Parse markdown-it-py tokens into a Markdoc AST."""
     root = Node("document", children=[])
     stack: List[Node] = [root]
     tag_stack: List[Node] = []
@@ -124,6 +125,7 @@ def _node_from_single_token(token: Token) -> Node | None:
 
 
 def _parse_inline_tokens(tokens: List[Token]) -> List[Node]:
+    """Parse inline tokens into a list of AST nodes."""
     output: List[Node] = []
     stack: List[Tuple[Node, List[Node]]] = []
 
@@ -180,6 +182,7 @@ def _parse_inline_tokens(tokens: List[Token]) -> List[Node]:
 
 
 def _apply_annotations(node: Node, children: List[Node]) -> List[Node]:
+    """Apply annotation attributes to a block-level node."""
     attrs = dict(node.attributes or {})
     class_list: List[str] = []
     output: List[Node] = []
@@ -221,6 +224,7 @@ def _attrs_to_dict(attrs) -> Dict[str, str]:
 
 
 def _parse_inline_text(text: str) -> List[Node]:
+    """Parse inline Markdoc tag syntax in a text run."""
     result: List[Node] = []
     stack: List[Tuple[str, Dict[str, object], List[Node]]] = []
     pos = 0

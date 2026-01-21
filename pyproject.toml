@@ -9,6 +9,9 @@ dependencies = [
     "pytest>=9.0.2",
 ]
 
+[project.scripts]
+pymarkdoc-docs = "pymarkdoc._docs:main"
+
 [dependency-groups]
 dev = [
     "pdoc>=16.0.0",

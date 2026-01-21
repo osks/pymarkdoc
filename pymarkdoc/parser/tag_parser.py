@@ -9,6 +9,7 @@ from ..ast.variable import Variable
 
 @dataclass
 class TagInfo:
+    """Parsed information about a Markdoc tag or annotation."""
     kind: str
     name: str | None = None
     attributes: Dict[str, Any] | None = None
@@ -17,11 +18,13 @@ class TagInfo:
 
 @dataclass
 class Token:
+    """Simple token used by the Markdoc tag parser."""
     type: str
     value: Any
 
 
 def parse_tag_content(content: str) -> TagInfo:
+    """Parse the interior of a {% ... %} tag."""
     trimmed = content.strip()
     if not trimmed:
         return TagInfo("error")
