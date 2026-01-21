@@ -77,11 +77,11 @@ make fixtures
 JS parity fixtures (requires Markdoc build):
 
 ```sh
-cd /Volumes/Dev/priv/markdoc/markdoc
+cd markdoc
 npm install
 npm run build
 
-cd /Volumes/Dev/priv/markdoc/pymarkdoc
+cd pymarkdoc
 make fixtures-js
 ```
 
