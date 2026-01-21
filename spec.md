@@ -13,7 +13,7 @@
 
 ## Proposed dependencies
 - markdown-it-py: CommonMark-compatible Markdown parser with token stream access.
-- mdit-py-plugins: tables extension enabled by default, to match Markdoc table support.
+  - Enable markdown-it-py table rule by default to match Markdoc table support.
 
 ## Package layout
 - pymarkdoc/__init__.py
@@ -116,6 +116,17 @@ Schema:
 ## Compatibility notes
 - API mirrors JS with snake_case in Python, but keep names as close as practical.
 - Markdoc.Markdoc class as convenience wrapper, matching JS default export.
+
+## Milestones
+### 0.5 (bootstrap)
+- Parse a simple valid Markdoc document.
+- Produce a minimal AST and transformed renderable tree that matches expected output.
+- HTML renderer supports basic elements (paragraph, heading, text, inline tags).
+
+### 1.0 (core parity)
+- Full tag/annotation parsing per spec.
+- Default schema, transforms, and validator parity with JS core.
+- Tables enabled by default.
 
 ## Implementation plan
 1) Build a minimal end-to-end slice: parse a simple valid Markdoc document and verify the AST/transform output matches expected results.
