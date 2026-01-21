@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+"""pymarkdoc public API."""
+
 from dataclasses import dataclass
 from typing import Any, Dict, List
 
@@ -63,18 +65,23 @@ class Markdoc:
     truthy = truthy
 
     def __init__(self, config: Dict[str, Any]):
+        """Create a Markdoc wrapper with a fixed config."""
         self.config = config
 
     def parse(self, content: str) -> Node:
+        """Parse Markdoc content into an AST."""
         return parse(content)
 
     def resolve(self, content: Node | List[Node]):
+        """Resolve variables/functions using the stored config."""
         return resolve(content, self.config)
 
     def transform(self, content: Node | List[Node]):
+        """Transform AST nodes into a renderable tree."""
         return transform(content, self.config)
 
     def validate(self, content: Node | List[Node]):
+        """Validate AST nodes against the schema."""
         return validate(content, self.config)
 
 

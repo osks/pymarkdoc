@@ -5,3 +5,4 @@ __pycache__/
 *.egg-info/
 .spec.md~
 spec.md~
+docs/api/
