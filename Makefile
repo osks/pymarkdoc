@@ -25,6 +25,7 @@ clean: ## Clean up build artifacts
 	@rm -rf pymarkdoc.egg-info
 	@rm -rf .venv/
 	@rm -rf .pytest_cache/
+	@rm -rf .tox/
 	@find . -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true
 	@find . -name "*.pyc" -delete
 	@find . -name "*.pyo" -delete
