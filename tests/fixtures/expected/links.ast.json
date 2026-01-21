@@ -1,0 +1,50 @@
+{
+  "attributes": {},
+  "children": [
+    {
+      "attributes": {},
+      "children": [
+        {
+          "attributes": {
+            "href": "https://example.com"
+          },
+          "children": [
+            {
+              "attributes": {},
+              "children": [],
+              "content": "Link",
+              "tag": null,
+              "type": "text"
+            }
+          ],
+          "content": null,
+          "tag": null,
+          "type": "link"
+        },
+        {
+          "attributes": {},
+          "children": [],
+          "content": " ",
+          "tag": null,
+          "type": "text"
+        },
+        {
+          "attributes": {
+            "alt": "Alt",
+            "src": "https://example.com/img.png"
+          },
+          "children": [],
+          "content": null,
+          "tag": null,
+          "type": "image"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "paragraph"
+    }
+  ],
+  "content": null,
+  "tag": null,
+  "type": "document"
+}

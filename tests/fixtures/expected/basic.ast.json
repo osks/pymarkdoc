@@ -1,0 +1,40 @@
+{
+  "attributes": {},
+  "children": [
+    {
+      "attributes": {
+        "level": 1
+      },
+      "children": [
+        {
+          "attributes": {},
+          "children": [],
+          "content": "Hello",
+          "tag": null,
+          "type": "text"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "heading"
+    },
+    {
+      "attributes": {},
+      "children": [
+        {
+          "attributes": {},
+          "children": [],
+          "content": "Simple text.",
+          "tag": null,
+          "type": "text"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "paragraph"
+    }
+  ],
+  "content": null,
+  "tag": null,
+  "type": "document"
+}

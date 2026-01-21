@@ -1,0 +1,26 @@
+{
+  "attributes": {},
+  "children": [
+    {
+      "attributes": {
+        "class": "hero",
+        "level": 1
+      },
+      "children": [
+        {
+          "attributes": {},
+          "children": [],
+          "content": "Title",
+          "tag": null,
+          "type": "text"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "heading"
+    }
+  ],
+  "content": null,
+  "tag": null,
+  "type": "document"
+}

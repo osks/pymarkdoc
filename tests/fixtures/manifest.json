@@ -1,0 +1,10 @@
+[
+  {"name": "basic"},
+  {"name": "annotation"},
+  {"name": "tags"},
+  {"name": "interpolation", "config": "interpolation"},
+  {"name": "table"},
+  {"name": "code"},
+  {"name": "links"},
+  {"name": "list"}
+]

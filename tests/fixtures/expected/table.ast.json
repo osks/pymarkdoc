@@ -1,0 +1,108 @@
+{
+  "attributes": {},
+  "children": [
+    {
+      "attributes": {},
+      "children": [
+        {
+          "attributes": {},
+          "children": [
+            {
+              "attributes": {},
+              "children": [
+                {
+                  "attributes": {},
+                  "children": [
+                    {
+                      "attributes": {},
+                      "children": [],
+                      "content": "a",
+                      "tag": null,
+                      "type": "text"
+                    }
+                  ],
+                  "content": null,
+                  "tag": null,
+                  "type": "th"
+                },
+                {
+                  "attributes": {},
+                  "children": [
+                    {
+                      "attributes": {},
+                      "children": [],
+                      "content": "b",
+                      "tag": null,
+                      "type": "text"
+                    }
+                  ],
+                  "content": null,
+                  "tag": null,
+                  "type": "th"
+                }
+              ],
+              "content": null,
+              "tag": null,
+              "type": "tr"
+            }
+          ],
+          "content": null,
+          "tag": null,
+          "type": "thead"
+        },
+        {
+          "attributes": {},
+          "children": [
+            {
+              "attributes": {},
+              "children": [
+                {
+                  "attributes": {},
+                  "children": [
+                    {
+                      "attributes": {},
+                      "children": [],
+                      "content": "c",
+                      "tag": null,
+                      "type": "text"
+                    }
+                  ],
+                  "content": null,
+                  "tag": null,
+                  "type": "td"
+                },
+                {
+                  "attributes": {},
+                  "children": [
+                    {
+                      "attributes": {},
+                      "children": [],
+                      "content": "d",
+                      "tag": null,
+                      "type": "text"
+                    }
+                  ],
+                  "content": null,
+                  "tag": null,
+                  "type": "td"
+                }
+              ],
+              "content": null,
+              "tag": null,
+              "type": "tr"
+            }
+          ],
+          "content": null,
+          "tag": null,
+          "type": "tbody"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "table"
+    }
+  ],
+  "content": null,
+  "tag": null,
+  "type": "document"
+}

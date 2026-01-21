@@ -1,0 +1,17 @@
+{
+  "attributes": {},
+  "children": [
+    {
+      "attributes": {
+        "language": "js"
+      },
+      "children": [],
+      "content": "const x = 1;\n",
+      "tag": null,
+      "type": "fence"
+    }
+  ],
+  "content": null,
+  "tag": null,
+  "type": "document"
+}
