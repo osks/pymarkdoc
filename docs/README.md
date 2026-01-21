@@ -3,7 +3,7 @@
 Generate API documentation with pdoc:
 
 ```sh
-uv run pdoc -o docs/api pymarkdoc
+uv run pdoc -o docs/api markdocpy
 ```
 
 The generated HTML will be in `docs/api/`.

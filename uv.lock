@@ -69,6 +69,32 @@ wheels = [
 ]
 
 [[package]]
+name = "markdoc-py"
+version = "0.1.0"
+source = { editable = "." }
+dependencies = [
+    { name = "markdown-it-py" },
+]
+
+[package.optional-dependencies]
+dev = [
+    { name = "pdoc" },
+    { name = "pytest" },
+    { name = "ruff" },
+    { name = "tox" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "markdown-it-py", specifier = ">=4.0.0" },
+    { name = "pdoc", marker = "extra == 'dev'", specifier = ">=16.0.0" },
+    { name = "pytest", marker = "extra == 'dev'", specifier = ">=9.0.2" },
+    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.1.0" },
+    { name = "tox", marker = "extra == 'dev'", specifier = ">=4.0.0" },
+]
+provides-extras = ["dev"]
+
+[[package]]
 name = "markdown-it-py"
 version = "4.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -222,32 +248,6 @@ sdist = { url = "https://files.pythonhosted.org/packages/b0/77/a5b8c569bf593b014
 wheels = [
     { url = "https://files.pythonhosted.org/packages/c7/21/705964c7812476f378728bdf590ca4b771ec72385c533964653c68e86bdc/pygments-2.19.2-py3-none-any.whl", hash = "sha256:86540386c03d588bb81d44bc3928634ff26449851e99741617ecb9037ee5ec0b", size = 1225217, upload-time = "2025-06-21T13:39:07.939Z" },
 ]
-
-[[package]]
-name = "pymarkdoc"
-version = "0.1.0"
-source = { editable = "." }
-dependencies = [
-    { name = "markdown-it-py" },
-]
-
-[package.optional-dependencies]
-dev = [
-    { name = "pdoc" },
-    { name = "pytest" },
-    { name = "ruff" },
-    { name = "tox" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "markdown-it-py", specifier = ">=4.0.0" },
-    { name = "pdoc", marker = "extra == 'dev'", specifier = ">=16.0.0" },
-    { name = "pytest", marker = "extra == 'dev'", specifier = ">=9.0.2" },
-    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.1.0" },
-    { name = "tox", marker = "extra == 'dev'", specifier = ">=4.0.0" },
-]
-provides-extras = ["dev"]
 
 [[package]]
 name = "pyproject-api"

@@ -1,4 +1,4 @@
-import pymarkdoc as Markdoc
+import markdocpy as Markdoc
 
 
 def test_milestone_05_simple_parse_transform():

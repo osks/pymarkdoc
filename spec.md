@@ -1,4 +1,4 @@
-# pymarkdoc: Python port of Markdoc (spec)
+# markdoc-py: Python port of Markdoc (spec)
 
 ## Goals
 - Provide a Python library with a user-facing API equivalent to the JS Markdoc core.
@@ -16,34 +16,34 @@
   - Enable markdown-it-py table rule by default to match Markdoc table support.
 
 ## Package layout
-- pymarkdoc/__init__.py
-- pymarkdoc/ast/
+- markdocpy/__init__.py
+- markdocpy/ast/
   - node.py
   - tag.py
   - function.py
   - variable.py
-- pymarkdoc/parser/
+- markdocpy/parser/
   - tokenizer.py
   - parser.py
-- pymarkdoc/schema/
+- markdocpy/schema/
   - nodes.py
   - tags.py
   - types.py
-- pymarkdoc/renderer/
+- markdocpy/renderer/
   - html.py
   - base.py
-- pymarkdoc/transform/
+- markdocpy/transform/
   - transformer.py
   - transforms.py
-- pymarkdoc/validator/
+- markdocpy/validator/
   - validator.py
-- pymarkdoc/utils.py
+- markdocpy/utils.py
 
 ## User-facing API (module-level)
 These mirror the JS surface, with Python naming conventions.
 
 ```python
-import pymarkdoc as Markdoc
+import markdocpy as Markdoc
 
 ast = Markdoc.parse(source, *, file=None, slots=False, location=False)
 resolved = Markdoc.resolve(ast, config)

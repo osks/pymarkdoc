@@ -22,7 +22,7 @@ env: ## Setup development environment
 clean: ## Clean up build artifacts
 	@echo "Cleaning up..."
 	@rm -rf dist
-	@rm -rf pymarkdoc.egg-info
+	@rm -rf markdoc_py.egg-info
 	@rm -rf .venv/
 	@rm -rf .pytest_cache/
 	@rm -rf .tox/
@@ -57,24 +57,24 @@ test-matrix: env ## Run tests across Python versions with tox
 .PHONY: lint
 lint: env ## Check code style
 	@echo "Checking code style..."
-	@uv run ruff check pymarkdoc/ tests/
+	@uv run ruff check markdocpy/ tests/
 
 .PHONY: lint-fix
 lint-fix: env ## Fix code style issues automatically
 	@echo "Fixing code style..."
-	@uv run ruff check --fix pymarkdoc/ tests/
+	@uv run ruff check --fix markdocpy/ tests/
 
 .PHONY: format
 format: env ## Format code
 	@echo "Formatting code..."
-	@uv run ruff format pymarkdoc/ tests/
+	@uv run ruff format markdocpy/ tests/
 
 
 ##@ Docs
 
 .PHONY: docs
 docs: env ## Build API docs with pdoc
-	@uv run pdoc -o docs/api pymarkdoc
+	@uv run pdoc -o docs/api markdocpy
 
 
 ##@ Fixtures

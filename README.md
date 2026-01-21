@@ -1,4 +1,4 @@
-# pymarkdoc
+# markdoc-py
 
 Python port of [Markdoc](https://markdoc.dev), a Markdown-based authoring framework with custom tags and annotations.
 
@@ -20,7 +20,7 @@ make env
 ## Quick start
 
 ```python
-import pymarkdoc as Markdoc
+import markdocpy as Markdoc
 
 source = \"\"\"
 # Hello
@@ -86,7 +86,7 @@ make fixtures-js
 ## Project layout
 
 ```
-pymarkdoc/
+markdocpy/
   ast/
   parser/
   renderer/

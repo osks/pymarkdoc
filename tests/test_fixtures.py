@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-import pymarkdoc as Markdoc
+import markdocpy as Markdoc
 from tests.fixtures.utils import fixture_configs, normalize_html, serialize_node
 
 FIXTURES_DIR = Path(__file__).parent / "fixtures"

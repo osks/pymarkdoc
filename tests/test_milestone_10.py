@@ -1,4 +1,4 @@
-import pymarkdoc as Markdoc
+import markdocpy as Markdoc
 
 
 def test_block_tag_wraps_paragraph():

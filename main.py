@@ -1,5 +1,5 @@
 def main():
-    print("Hello from pymarkdoc!")
+    print("Hello from markdoc-py!")
 
 
 if __name__ == "__main__":

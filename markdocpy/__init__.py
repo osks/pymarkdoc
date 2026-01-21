@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-"""pymarkdoc public API."""
+"""markdocpy public API."""
 
 from dataclasses import dataclass
 from typing import Any, Dict, List

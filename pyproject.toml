@@ -1,5 +1,5 @@
 [project]
-name = "pymarkdoc"
+name = "markdoc-py"
 version = "0.1.0"
 description = "Python port of Markdoc"
 authors = [
@@ -22,7 +22,7 @@ dev = [
 ]
 
 [project.scripts]
-pymarkdoc-docs = "pymarkdoc._docs:main"
+markdoc-py-docs = "markdocpy._docs:main"
 
 [build-system]
 requires = ["hatchling"]
@@ -33,3 +33,6 @@ package = true
 
 [tool.ruff]
 line-length = 100
+
+[tool.hatch.build.targets.wheel]
+packages = ["markdocpy"]

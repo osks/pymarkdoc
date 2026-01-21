@@ -1,4 +1,4 @@
-import pymarkdoc as Markdoc
+import markdocpy as Markdoc
 
 
 def test_html_escapes_text():

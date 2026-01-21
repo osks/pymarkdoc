@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-import pymarkdoc as Markdoc
+import markdocpy as Markdoc
 
 
 def fixture_configs():
