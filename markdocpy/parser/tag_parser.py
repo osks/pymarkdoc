@@ -106,6 +106,16 @@ class Lexer:
             value = self.read_string()
             return Token("string", value, start, self.position())
 
+        if char.isdigit() and self._peek_is_ident_tail():
+            ident = self.read_identifier()
+            if ident == "true":
+                return Token("boolean", True, start, self.position())
+            if ident == "false":
+                return Token("boolean", False, start, self.position())
+            if ident == "null":
+                return Token("null", None, start, self.position())
+            return Token("ident", ident, start, self.position())
+
         if char.isdigit() or (char == "-" and self._peek_is_digit()):
             value = self.read_number()
             return Token("number", value, start, self.position())
@@ -127,6 +137,12 @@ class Lexer:
         if self.offset + 1 >= len(self.content):
             return False
         return self.content[self.offset + 1].isdigit()
+
+    def _peek_is_ident_tail(self) -> bool:
+        if self.offset + 1 >= len(self.content):
+            return False
+        nxt = self.content[self.offset + 1]
+        return nxt.isalpha() or nxt in "_-"
 
     def read_identifier(self) -> str:
         value = []
@@ -300,11 +316,14 @@ class Parser:
             token = self.peek()
             if token.type == "symbol" and token.value in (".", "#"):
                 self.advance()
-                ident = self.expect("ident")
+                ident_token = self.peek()
+                if ident_token is None or ident_token.type not in ("ident", "number"):
+                    raise TagSyntaxError("Invalid attribute", self._end_location())
+                ident = self.advance()
                 if token.value == ".":
-                    class_list.append(ident.value)
+                    class_list.append(str(ident.value))
                 else:
-                    attributes["id"] = ident.value
+                    attributes["id"] = str(ident.value)
                 continue
             if token.type == "ident":
                 name = token.value

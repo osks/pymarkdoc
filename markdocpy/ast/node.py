@@ -16,6 +16,7 @@ class Node:
     attributes: Dict[str, Any] = field(default_factory=dict)
     tag: Optional[str] = None
     content: Optional[str] = None
+    slots: Dict[str, "Node"] = field(default_factory=dict)
 
     def resolve(self, config: Any) -> "Node":
         """Resolve variables/functions in this node and its children."""

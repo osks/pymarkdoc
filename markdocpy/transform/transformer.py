@@ -6,6 +6,13 @@ from ..ast.node import Node
 from ..ast.tag import Tag
 from ..schema.nodes import nodes as default_nodes
 from ..schema.tags import tags as default_tags
+from ..schema_types import ClassType, IdType
+
+
+global_attributes = {
+    "class": {"type": ClassType, "render": True},
+    "id": {"type": IdType, "render": True},
+}
 
 
 def merge_config(config: Dict[str, Any] | None = None) -> Dict[str, Any]:
@@ -15,6 +22,7 @@ def merge_config(config: Dict[str, Any] | None = None) -> Dict[str, Any]:
         **config,
         "nodes": {**default_nodes, **config.get("nodes", {})},
         "tags": {**default_tags, **config.get("tags", {})},
+        "global_attributes": {**global_attributes, **config.get("global_attributes", {})},
     }
 
 
@@ -80,21 +88,37 @@ def _find_schema(node: Node, config: Dict[str, Any]) -> Dict[str, Any] | None:
 
 
 def _render_attributes(node: Node, schema: Dict[str, Any] | None) -> Dict[str, Any]:
-    if not node.attributes:
-        return {}
     if not schema:
         return dict(node.attributes)
     rendered: Dict[str, Any] = {}
     schema_attrs = schema.get("attributes", {}) if schema else {}
-    for key, value in node.attributes.items():
-        config = schema_attrs.get(key, {}) if isinstance(schema_attrs, dict) else {}
-        render_as = config.get("render", True)
-        if render_as is False:
+    attrs = {**global_attributes, **schema_attrs} if isinstance(schema_attrs, dict) else dict(global_attributes)
+
+    for key, attr in attrs.items():
+        if isinstance(attr, dict) and attr.get("render") is False:
             continue
-        if isinstance(render_as, str):
-            rendered[render_as] = value
-        else:
-            rendered[key] = value
+        render_as = attr.get("render", True) if isinstance(attr, dict) else True
+        name = render_as if isinstance(render_as, str) else key
+        value = node.attributes.get(key)
+        if value is None and isinstance(attr, dict) and "default" in attr:
+            value = attr.get("default")
+        if value is None:
+            continue
+        type_cls = attr.get("type") if isinstance(attr, dict) else None
+        if isinstance(type_cls, type):
+            instance = type_cls()
+            if hasattr(instance, "transform"):
+                value = instance.transform(value)
+        rendered[name] = value
+
+    if schema.get("slots") and node.slots:
+        for key, slot in schema["slots"].items():
+            if isinstance(slot, dict) and slot.get("render") is False:
+                continue
+            name = slot.get("render") if isinstance(slot, dict) else key
+            if isinstance(name, str) and key in node.slots:
+                rendered[name] = transform(node.slots[key], None)
+
     return rendered
 
 

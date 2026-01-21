@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any, Dict, List
 
 from ..ast.node import Node
+from ..schema_types import ClassType, IdType
 from ..transform.transformer import merge_config
 
 
@@ -42,7 +43,8 @@ def _validate_attributes(node: Node, schema: Dict[str, Any], errors: List[Dict[s
     schema_attrs = schema.get("attributes", {}) if schema else {}
     if not isinstance(schema_attrs, dict):
         return
-    for key, definition in schema_attrs.items():
+    attrs = {**{"class": {"type": ClassType}, "id": {"type": IdType}}, **schema_attrs}
+    for key, definition in attrs.items():
         if not isinstance(definition, dict):
             continue
         if definition.get("required") and key not in node.attributes:
@@ -59,12 +61,27 @@ def _validate_attributes(node: Node, schema: Dict[str, Any], errors: List[Dict[s
         expected = definition.get("type")
         if expected is None:
             continue
+        if isinstance(expected, type) and hasattr(expected, "validate"):
+            instance = expected()
+            errors.extend(instance.validate(node.attributes.get(key), {}, key))
+            continue
         if not _check_type(node.attributes.get(key), expected):
             errors.append(
                 {
                     "id": "invalid-attribute",
                     "level": "error",
                     "message": f"Invalid type for attribute '{key}'",
+                }
+            )
+            continue
+
+        matches = definition.get("matches")
+        if matches is not None and not _check_matches(node.attributes.get(key), matches):
+            errors.append(
+                {
+                    "id": "attribute-value-invalid",
+                    "level": definition.get("errorLevel", "error"),
+                    "message": f"Invalid value for attribute '{key}'",
                 }
             )
 
@@ -82,4 +99,14 @@ def _check_type(value: Any, expected: Any) -> bool:
         return isinstance(value, dict)
     if expected in (list, "Array"):
         return isinstance(value, list)
+    return True
+
+
+def _check_matches(value: Any, matches: Any) -> bool:
+    if matches is None:
+        return True
+    if hasattr(matches, "search"):
+        return bool(matches.search(str(value)))
+    if isinstance(matches, (list, tuple)):
+        return value in matches
     return True

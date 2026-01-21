@@ -15,7 +15,7 @@ from .parser.tokenizer import Tokenizer
 from .renderer.html import render as _render_html
 from .schema.nodes import nodes
 from .schema.tags import tags, truthy
-from .transform.transformer import merge_config, transform as _transform
+from .transform.transformer import global_attributes, merge_config, transform as _transform
 from .validator.validator import validate_tree
 
 
@@ -105,6 +105,7 @@ __all__ = [
     "nodes",
     "tags",
     "truthy",
+    "global_attributes",
     "Markdoc",
     "__version__",
 ]
