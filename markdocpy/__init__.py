@@ -9,6 +9,7 @@ from .ast.function import Function
 from .ast.node import Node
 from .ast.tag import Tag
 from .ast.variable import Variable
+from .version import __version__
 from .parser.parser import parse as _parse_tokens
 from .parser.tokenizer import Tokenizer
 from .renderer.html import render as _render_html
@@ -105,4 +106,5 @@ __all__ = [
     "tags",
     "truthy",
     "Markdoc",
+    "__version__",
 ]
