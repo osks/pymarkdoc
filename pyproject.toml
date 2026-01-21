@@ -22,7 +22,6 @@ dev = [
 
 [project.scripts]
 pymarkdoc-docs = "pymarkdoc._docs:main"
-pymarkdoc-fixtures = "pymarkdoc._fixtures:main"
 
 [build-system]
 requires = ["hatchling"]
