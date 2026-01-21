@@ -12,3 +12,10 @@ dependencies = [
 
 [project.scripts]
 pymarkdoc-docs = "pymarkdoc._docs:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+package = true

@@ -159,25 +159,19 @@ wheels = [
 [[package]]
 name = "pymarkdoc"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "markdown-it-py" },
-    { name = "pytest" },
-]
-
-[package.dev-dependencies]
-dev = [
     { name = "pdoc" },
+    { name = "pytest" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "markdown-it-py", specifier = ">=4.0.0" },
+    { name = "pdoc", specifier = ">=16.0.0" },
     { name = "pytest", specifier = ">=9.0.2" },
 ]
-
-[package.metadata.requires-dev]
-dev = [{ name = "pdoc", specifier = ">=16.0.0" }]
 
 [[package]]
 name = "pytest"
