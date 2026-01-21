@@ -17,9 +17,6 @@ all: lint test
 env: ## Setup development environment
 	@uv sync --all-extras
 
-.PHONY: dev
-dev: env ## Alias for env
-
 
 .PHONY: clean
 clean: ## Clean up build artifacts
@@ -46,24 +43,24 @@ build: ## Build
 ##@ Tests
 
 .PHONY: test
-test: dev ## Run unit tests
+test: env ## Run unit tests
 	@uv run pytest tests/ -v
 
 
 ##@ Linting / Formatting
 
 .PHONY: lint
-lint: dev ## Check code style
+lint: env ## Check code style
 	@echo "Checking code style..."
 	@uv run ruff check pymarkdoc/ tests/
 
 .PHONY: lint-fix
-lint-fix: dev ## Fix code style issues automatically
+lint-fix: env ## Fix code style issues automatically
 	@echo "Fixing code style..."
 	@uv run ruff check --fix pymarkdoc/ tests/
 
 .PHONY: format
-format: dev ## Format code
+format: env ## Format code
 	@echo "Formatting code..."
 	@uv run ruff format pymarkdoc/ tests/
 
@@ -71,16 +68,16 @@ format: dev ## Format code
 ##@ Docs
 
 .PHONY: docs
-docs: dev ## Build API docs with pdoc
+docs: env ## Build API docs with pdoc
 	@uv run pdoc -o docs/api pymarkdoc
 
 
 ##@ Fixtures
 
 .PHONY: fixtures
-fixtures: dev ## Regenerate Python fixtures (AST + HTML)
+fixtures: env ## Regenerate Python fixtures (AST + HTML)
 	@uv run python scripts/generate_py_fixtures.py
 
 .PHONY: fixtures-js
-fixtures-js: dev ## Regenerate JS fixtures (requires built Markdoc dist)
+fixtures-js: env ## Regenerate JS fixtures (requires built Markdoc dist)
 	@node tests/js/generate_fixtures.js
