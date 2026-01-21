@@ -46,6 +46,10 @@ build: ## Build
 test: env ## Run unit tests
 	@uv run pytest tests/ -v
 
+.PHONY: test-matrix
+test-matrix: env ## Run tests across Python versions with tox
+	@uv run tox
+
 
 ##@ Linting / Formatting
 
