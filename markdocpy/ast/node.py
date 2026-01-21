@@ -10,6 +10,7 @@ from .variable import Variable
 @dataclass
 class Node:
     """AST node for parsed Markdoc content."""
+
     type: str
     children: List["Node"] = field(default_factory=list)
     attributes: Dict[str, Any] = field(default_factory=dict)

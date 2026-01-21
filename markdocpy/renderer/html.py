@@ -40,7 +40,7 @@ def render(node: Any) -> str:
 
     output = [f"<{name}"]
     for key, value in attributes.items():
-        output.append(f" {key.lower()}=\"{escape(str(value), quote=True)}\"")
+        output.append(f' {key.lower()}="{escape(str(value), quote=True)}"')
     output.append(">")
 
     if name in _VOID_ELEMENTS:

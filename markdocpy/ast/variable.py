@@ -7,6 +7,7 @@ from typing import Any, Dict
 @dataclass
 class Variable:
     """Reference to a variable to be resolved at transform time."""
+
     name: str
 
     def resolve(self, config: Dict[str, Any]) -> Any:

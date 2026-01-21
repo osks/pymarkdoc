@@ -7,6 +7,7 @@ from typing import Any, Iterable, List, Mapping, Optional
 @dataclass
 class Tag:
     """Renderable tag node produced by the transformer."""
+
     name: Optional[str]
     attributes: Mapping[str, Any] = field(default_factory=dict)
     children: List[Any] = field(default_factory=list)

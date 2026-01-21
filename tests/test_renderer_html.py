@@ -9,7 +9,7 @@ def test_html_escapes_text():
 def test_html_escapes_attribute_values():
     node = Markdoc.create_element("note", {"title": "A & B"}, "Body")
     html = Markdoc.renderers.html(node)
-    assert html == "<note title=\"A &amp; B\">Body</note>"
+    assert html == '<note title="A &amp; B">Body</note>'
 
 
 def test_void_elements_do_not_close():

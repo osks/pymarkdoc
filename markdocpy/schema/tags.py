@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Dict, List
+from typing import Any, Dict
 
 from ..ast.node import Node
 
@@ -26,6 +26,7 @@ def _render_conditions(node: Node):
 
 def _transform_if(node: Node, config: Dict[str, Any]):
     from ..transform.transformer import transform
+
     for condition in _render_conditions(node):
         if truthy(condition["condition"]):
             return [transform(child, config) for child in condition["children"]]
@@ -36,7 +37,9 @@ def _transform_tag(node: Node, config: Dict[str, Any]):
     from ..ast.tag import Tag
     from ..transform.transformer import transform
 
-    return Tag(node.tag, node.attributes or {}, [transform(child, config) for child in node.children])
+    return Tag(
+        node.tag, node.attributes or {}, [transform(child, config) for child in node.children]
+    )
 
 
 tags = {

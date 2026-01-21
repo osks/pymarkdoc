@@ -287,7 +287,7 @@ def _parse_inline_text(text: str) -> List[Node]:
 
 def _is_single_tag_line(text: str) -> bool:
     stripped = text.strip()
-    if not stripped.startswith("{%"): 
+    if not stripped.startswith("{%"):
         return False
     if not stripped.endswith("%}"):
         return False

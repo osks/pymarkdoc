@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Dict, Iterable, List
+from typing import Any, Dict, List
 
 from ..ast.node import Node
 from ..ast.tag import Tag
@@ -46,7 +46,9 @@ def transform(node: Node | List[Node], config: Dict[str, Any] | None = None):
     if node.type == "item":
         children = node.children
         if len(children) == 1 and isinstance(children[0], Node) and children[0].type == "paragraph":
-            return Tag("li", _render_attributes(node, schema), _transform_children(children[0], cfg))
+            return Tag(
+                "li", _render_attributes(node, schema), _transform_children(children[0], cfg)
+            )
         return Tag("li", _render_attributes(node, schema), _transform_children(node, cfg))
 
     if schema is None:

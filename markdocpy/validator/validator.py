@@ -6,7 +6,9 @@ from ..ast.node import Node
 from ..transform.transformer import merge_config
 
 
-def validate_tree(node: Node | List[Node], config: Dict[str, Any] | None = None) -> List[Dict[str, Any]]:
+def validate_tree(
+    node: Node | List[Node], config: Dict[str, Any] | None = None
+) -> List[Dict[str, Any]]:
     """Validate nodes against schema rules."""
     cfg = merge_config(config)
     errors: List[Dict[str, Any]] = []

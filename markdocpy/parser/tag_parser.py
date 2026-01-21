@@ -10,6 +10,7 @@ from ..ast.variable import Variable
 @dataclass
 class TagInfo:
     """Parsed information about a Markdoc tag or annotation."""
+
     kind: str
     name: str | None = None
     attributes: Dict[str, Any] | None = None
@@ -19,6 +20,7 @@ class TagInfo:
 @dataclass
 class Token:
     """Simple token used by the Markdoc tag parser."""
+
     type: str
     value: Any
 
@@ -199,11 +201,7 @@ def _parse_function(tokens: List[Token], idx: int) -> Tuple[Function | None, int
     while idx < len(tokens):
         if tokens[idx].value == ")":
             return Function(name, args, kwargs), idx + 1
-        if (
-            tokens[idx].type == "ident"
-            and idx + 1 < len(tokens)
-            and tokens[idx + 1].value == "="
-        ):
+        if tokens[idx].type == "ident" and idx + 1 < len(tokens) and tokens[idx + 1].value == "=":
             key = tokens[idx].value
             value, idx = _parse_value(tokens, idx + 2)
             kwargs[key] = value

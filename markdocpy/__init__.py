@@ -26,7 +26,9 @@ class _Renderers:
 renderers = _Renderers()
 
 
-def parse(content: str, *, file: str | None = None, slots: bool = False, location: bool = False) -> Node:
+def parse(
+    content: str, *, file: str | None = None, slots: bool = False, location: bool = False
+) -> Node:
     _ = file, slots, location
     tokenizer = Tokenizer()
     tokens = tokenizer.tokenize(content)
@@ -49,7 +51,9 @@ def validate(content: Node | List[Node], config: Dict[str, Any] | None = None):
     return validate_tree(content, config)
 
 
-def create_element(name: str | Dict[str, Any], attributes: Dict[str, Any] | None = None, *children: Any) -> Tag:
+def create_element(
+    name: str | Dict[str, Any], attributes: Dict[str, Any] | None = None, *children: Any
+) -> Tag:
     if isinstance(name, dict):
         attributes = name
         name = attributes.get("name")
