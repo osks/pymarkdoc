@@ -15,7 +15,7 @@ all: lint test
 ##@ Environment
 .PHONY: env
 env: ## Setup development environment
-	@uv sync --all-extras
+	@uv sync --all-extras --link-mode=copy
 
 
 .PHONY: clean
