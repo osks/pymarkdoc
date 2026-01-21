@@ -1,0 +1,31 @@
+{
+  "attributes": {},
+  "children": [
+    {
+      "attributes": {
+        "error": {
+          "location": {
+            "end": {
+              "column": 12,
+              "line": 1,
+              "offset": 11
+            },
+            "start": {
+              "column": 12,
+              "line": 1,
+              "offset": 11
+            }
+          },
+          "message": "Expected value"
+        }
+      },
+      "children": [],
+      "content": "{% note title= %}",
+      "tag": null,
+      "type": "error"
+    }
+  ],
+  "content": null,
+  "tag": null,
+  "type": "document"
+}

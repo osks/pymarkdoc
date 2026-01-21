@@ -1,0 +1,23 @@
+{
+  "attributes": {},
+  "children": [
+    {
+      "attributes": {},
+      "children": [
+        {
+          "attributes": {},
+          "children": [],
+          "content": "{% note title=\"oops %}",
+          "tag": null,
+          "type": "text"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "paragraph"
+    }
+  ],
+  "content": null,
+  "tag": null,
+  "type": "document"
+}

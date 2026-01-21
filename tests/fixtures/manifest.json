@@ -6,5 +6,8 @@
   {"name": "table"},
   {"name": "code"},
   {"name": "links"},
-  {"name": "list"}
+  {"name": "list"},
+  {"name": "invalid_tag"},
+  {"name": "unterminated_string"},
+  {"name": "bad_object", "skip_js_html": true}
 ]

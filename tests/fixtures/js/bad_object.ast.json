@@ -1,0 +1,16 @@
+{
+  "type": "document",
+  "attributes": {},
+  "children": [
+    {
+      "type": "tag",
+      "tag": "note",
+      "attributes": {
+        "data": {
+          "a": 1
+        }
+      },
+      "children": []
+    }
+  ]
+}

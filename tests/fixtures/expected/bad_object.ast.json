@@ -1,0 +1,19 @@
+{
+  "attributes": {},
+  "children": [
+    {
+      "attributes": {
+        "data": {
+          "a": 1
+        }
+      },
+      "children": [],
+      "content": null,
+      "tag": "note",
+      "type": "tag"
+    }
+  ],
+  "content": null,
+  "tag": null,
+  "type": "document"
+}

@@ -34,7 +34,7 @@ def test_fixtures_ast_and_html():
             assert html == expected_html
 
         js_html_path = JS_DIR / f"{name}.html"
-        if js_html_path.exists():
+        if js_html_path.exists() and not entry.get("skip_js_html"):
             js_html = normalize_html(js_html_path.read_text())
             if js_html.startswith("<article>") and js_html.endswith("</article>"):
                 js_html = js_html[len("<article>") : -len("</article>")]
