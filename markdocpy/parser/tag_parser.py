@@ -1,10 +1,30 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List
 
 from ..ast.function import Function
 from ..ast.variable import Variable
+
+
+@dataclass
+class Position:
+    offset: int
+    line: int
+    column: int
+
+
+@dataclass
+class Location:
+    start: Position
+    end: Position
+
+
+class TagSyntaxError(Exception):
+    def __init__(self, message: str, location: Location):
+        super().__init__(message)
+        self.message = message
+        self.location = location
 
 
 @dataclass
@@ -15,307 +35,394 @@ class TagInfo:
     name: str | None = None
     attributes: Dict[str, Any] | None = None
     value: Any | None = None
+    error: Dict[str, Any] | None = None
 
 
 @dataclass
 class Token:
-    """Simple token used by the Markdoc tag parser."""
+    """Token produced by the tag lexer."""
 
     type: str
     value: Any
+    start: Position
+    end: Position
+
+
+class Lexer:
+    def __init__(self, content: str):
+        self.content = content
+        self.offset = 0
+        self.line = 1
+        self.column = 1
+
+    def eof(self) -> bool:
+        return self.offset >= len(self.content)
+
+    def peek(self) -> str:
+        if self.eof():
+            return ""
+        return self.content[self.offset]
+
+    def advance(self) -> str:
+        char = self.peek()
+        if not char:
+            return ""
+        self.offset += 1
+        if char == "\n":
+            self.line += 1
+            self.column = 1
+        else:
+            self.column += 1
+        return char
+
+    def position(self) -> Position:
+        return Position(self.offset, self.line, self.column)
+
+    def skip_whitespace(self) -> None:
+        while not self.eof() and self.peek().isspace():
+            self.advance()
+
+    def next_token(self) -> Token | None:
+        self.skip_whitespace()
+        if self.eof():
+            return None
+
+        start = self.position()
+        char = self.peek()
+
+        if char in "=,[](){}:.#":
+            self.advance()
+            return Token("symbol", char, start, self.position())
+
+        if char == "/":
+            self.advance()
+            return Token("slash", "/", start, self.position())
+
+        if char == "$":
+            self.advance()
+            return Token("dollar", "$", start, self.position())
+
+        if char in ('"', "'"):
+            value = self.read_string()
+            return Token("string", value, start, self.position())
+
+        if char.isdigit() or (char == "-" and self._peek_is_digit()):
+            value = self.read_number()
+            return Token("number", value, start, self.position())
+
+        if char.isalpha() or char in "_-":
+            ident = self.read_identifier()
+            if ident == "true":
+                return Token("boolean", True, start, self.position())
+            if ident == "false":
+                return Token("boolean", False, start, self.position())
+            if ident == "null":
+                return Token("null", None, start, self.position())
+            return Token("ident", ident, start, self.position())
+
+        message = f"Unexpected character '{char}'"
+        raise TagSyntaxError(message, Location(start, self.position()))
+
+    def _peek_is_digit(self) -> bool:
+        if self.offset + 1 >= len(self.content):
+            return False
+        return self.content[self.offset + 1].isdigit()
+
+    def read_identifier(self) -> str:
+        value = []
+        while not self.eof() and (self.peek().isalnum() or self.peek() in "_-"):
+            value.append(self.advance())
+        return "".join(value)
+
+    def read_number(self) -> int | float:
+        start_offset = self.offset
+        if self.peek() == "-":
+            self.advance()
+        while not self.eof() and self.peek().isdigit():
+            self.advance()
+        if not self.eof() and self.peek() == ".":
+            self.advance()
+            while not self.eof() and self.peek().isdigit():
+                self.advance()
+        if not self.eof() and self.peek() in "eE":
+            self.advance()
+            if not self.eof() and self.peek() in "+-":
+                self.advance()
+            while not self.eof() and self.peek().isdigit():
+                self.advance()
+        text = self.content[start_offset : self.offset]
+        return float(text) if any(ch in text for ch in ".eE") else int(text)
+
+    def read_string(self) -> str:
+        quote = self.advance()
+        value = []
+        while not self.eof():
+            char = self.advance()
+            if char == quote:
+                return "".join(value)
+            if char == "\\" and not self.eof():
+                nxt = self.advance()
+                if nxt == "n":
+                    value.append("\n")
+                elif nxt == "r":
+                    value.append("\r")
+                elif nxt == "t":
+                    value.append("\t")
+                else:
+                    value.append(nxt)
+                continue
+            value.append(char)
+        message = "Unterminated string"
+        end = self.position()
+        raise TagSyntaxError(message, Location(end, end))
+
+
+class Parser:
+    def __init__(self, tokens: List[Token]):
+        self.tokens = tokens
+        self.index = 0
+
+    def peek(self) -> Token | None:
+        if self.index >= len(self.tokens):
+            return None
+        return self.tokens[self.index]
+
+    def advance(self) -> Token | None:
+        token = self.peek()
+        if token is not None:
+            self.index += 1
+        return token
+
+    def expect(self, type_: str, value: str | None = None) -> Token:
+        token = self.peek()
+        if token is None:
+            raise TagSyntaxError("Unexpected end of input", self._end_location())
+        if token.type != type_:
+            raise TagSyntaxError(f"Expected {type_}", Location(token.start, token.end))
+        if value is not None and token.value != value:
+            raise TagSyntaxError(f"Expected '{value}'", Location(token.start, token.end))
+        return self.advance()
+
+    def _end_location(self) -> Location:
+        if self.tokens:
+            last = self.tokens[-1]
+            return Location(last.end, last.end)
+        pos = Position(0, 1, 1)
+        return Location(pos, pos)
+
+    def parse_value(self) -> Any:
+        token = self.peek()
+        if token is None:
+            raise TagSyntaxError("Expected value", self._end_location())
+
+        if token.type in ("string", "number", "boolean", "null"):
+            self.advance()
+            return token.value
+
+        if token.type == "dollar":
+            self.advance()
+            ident = self.expect("ident")
+            return Variable(ident.value)
+
+        if token.type == "ident":
+            next_token = self._peek_next()
+            if next_token and next_token.type == "symbol" and next_token.value == "(":
+                return self.parse_function()
+            self.advance()
+            return token.value
+
+        if token.type == "symbol" and token.value == "[":
+            return self.parse_array()
+
+        if token.type == "symbol" and token.value == "{":
+            return self.parse_object()
+
+        raise TagSyntaxError("Expected value", Location(token.start, token.end))
+
+    def parse_array(self) -> List[Any]:
+        items: List[Any] = []
+        self.expect("symbol", "[")
+        while True:
+            token = self.peek()
+            if token is None:
+                raise TagSyntaxError("Expected ']'", self._end_location())
+            if token.type == "symbol" and token.value == "]":
+                self.advance()
+                return items
+            items.append(self.parse_value())
+            token = self.peek()
+            if token and token.type == "symbol" and token.value == ",":
+                self.advance()
+                continue
+
+    def parse_object(self) -> Dict[str, Any]:
+        output: Dict[str, Any] = {}
+        self.expect("symbol", "{")
+        while True:
+            token = self.peek()
+            if token is None:
+                raise TagSyntaxError("Expected '}'", self._end_location())
+            if token.type == "symbol" and token.value == "}":
+                self.advance()
+                return output
+            key_token = self.expect("ident") if token.type == "ident" else self.expect("string")
+            self.expect("symbol", ":")
+            output[key_token.value] = self.parse_value()
+            token = self.peek()
+            if token and token.type == "symbol" and token.value == ",":
+                self.advance()
+                continue
+
+    def parse_function(self) -> Function:
+        name_token = self.expect("ident")
+        self.expect("symbol", "(")
+        args: List[Any] = []
+        kwargs: Dict[str, Any] = {}
+        while True:
+            token = self.peek()
+            if token is None:
+                raise TagSyntaxError("Expected ')'", self._end_location())
+            if token.type == "symbol" and token.value == ")":
+                self.advance()
+                return Function(name_token.value, args, kwargs)
+            if token.type == "ident" and self._peek_is_symbol("="):
+                key = self.advance().value
+                self.expect("symbol", "=")
+                kwargs[key] = self.parse_value()
+            else:
+                args.append(self.parse_value())
+            token = self.peek()
+            if token and token.type == "symbol" and token.value == ",":
+                self.advance()
+
+    def parse_attributes(self, attributes: Dict[str, Any], class_list: List[str]) -> None:
+        while self.peek() is not None:
+            token = self.peek()
+            if token.type == "symbol" and token.value in (".", "#"):
+                self.advance()
+                ident = self.expect("ident")
+                if token.value == ".":
+                    class_list.append(ident.value)
+                else:
+                    attributes["id"] = ident.value
+                continue
+            if token.type == "ident":
+                name = token.value
+                if self._peek_is_symbol("="):
+                    self.advance()
+                    self.expect("symbol", "=")
+                    attributes[name] = self.parse_value()
+                    continue
+            raise TagSyntaxError("Invalid attribute", Location(token.start, token.end))
+
+    def _peek_next(self) -> Token | None:
+        if self.index + 1 >= len(self.tokens):
+            return None
+        return self.tokens[self.index + 1]
+
+    def _peek_is_symbol(self, value: str) -> bool:
+        next_token = self._peek_next()
+        return next_token is not None and next_token.type == "symbol" and next_token.value == value
+
+
+def _tokenize(content: str) -> List[Token]:
+    lexer = Lexer(content)
+    tokens: List[Token] = []
+    while True:
+        token = lexer.next_token()
+        if token is None:
+            break
+        tokens.append(token)
+    return tokens
+
+
+def _strip_self_closing(content: str) -> tuple[str, bool]:
+    trimmed = content.rstrip()
+    if not trimmed:
+        return trimmed, False
+    if trimmed.endswith("/"):
+        return trimmed[:-1].rstrip(), True
+    return content, False
 
 
 def parse_tag_content(content: str) -> TagInfo:
     """Parse the interior of a {% ... %} tag."""
-    trimmed = content.strip()
-    if not trimmed:
-        return TagInfo("error")
+    try:
+        trimmed = content.strip()
+        if not trimmed:
+            raise TagSyntaxError("Empty tag", _empty_location())
 
-    if trimmed.startswith("/"):
-        name = trimmed[1:].strip().split()[0] if trimmed[1:].strip() else None
-        return TagInfo("close", name=name)
+        if trimmed.startswith("/"):
+            inner = trimmed[1:].strip()
+            tokens = _tokenize(inner)
+            parser = Parser(tokens)
+            if not tokens:
+                raise TagSyntaxError("Missing tag name", _empty_location())
+            name = parser.expect("ident").value
+            if parser.peek() is not None:
+                raise TagSyntaxError("Unexpected token", Location(parser.peek().start, parser.peek().end))
+            return TagInfo("close", name=name)
 
-    self_closing = trimmed.endswith("/")
-    if self_closing:
-        trimmed = trimmed[:-1].strip()
+        normalized, self_closing = _strip_self_closing(trimmed)
+        tokens = _tokenize(normalized)
+        if not tokens:
+            raise TagSyntaxError("Empty tag", _empty_location())
 
-    tokens = _tokenize(trimmed)
-    if not tokens:
-        return TagInfo("error")
+        parser = Parser(tokens)
+        first = parser.peek()
+        if first and first.type == "dollar":
+            value = parser.parse_value()
+            if parser.peek() is not None:
+                raise TagSyntaxError("Unexpected token", Location(parser.peek().start, parser.peek().end))
+            return TagInfo("interpolation", value=value)
 
-    interp = _parse_interpolation(tokens)
-    if interp is not None:
-        return interp
+        if first and first.type == "ident" and parser._peek_is_symbol("("):
+            value = parser.parse_function()
+            if parser.peek() is not None:
+                raise TagSyntaxError("Unexpected token", Location(parser.peek().start, parser.peek().end))
+            return TagInfo("interpolation", value=value)
 
-    name = None
-    idx = 0
-    if tokens and tokens[0].type == "ident":
-        next_token = tokens[1] if len(tokens) > 1 else None
-        if not next_token or next_token.value not in ("=", "("):
-            name = tokens[0].value
-            idx = 1
+        name = None
+        if first and first.type == "ident":
+            next_token = parser._peek_next()
+            if not next_token or not (next_token.type == "symbol" and next_token.value in ("=", "(")):
+                name = parser.advance().value
 
-    attributes: Dict[str, Any] = {}
-    class_list: List[str] = []
+        attributes: Dict[str, Any] = {}
+        class_list: List[str] = []
 
-    if name and idx < len(tokens):
-        token = tokens[idx]
-        next_token = tokens[idx + 1] if idx + 1 < len(tokens) else None
-        if token.value not in (".", "#") and not (
-            token.type == "ident" and next_token and next_token.value == "="
-        ):
-            value, next_idx = _parse_value(tokens, idx)
-            if value is not None:
-                attributes["primary"] = value
-                idx = next_idx
+        if name and parser.peek() is not None:
+            token = parser.peek()
+            if token and not (token.type == "symbol" and token.value in (".", "#")):
+                if not (token.type == "ident" and parser._peek_is_symbol("=")):
+                    attributes["primary"] = parser.parse_value()
 
-    idx = _parse_attributes(tokens, idx, attributes, class_list)
+        if parser.peek() is not None:
+            parser.parse_attributes(attributes, class_list)
 
-    if class_list:
-        attributes["class"] = " ".join(class_list)
+        if class_list:
+            attributes["class"] = " ".join(class_list)
 
-    if name is None and attributes:
-        return TagInfo("annotation", attributes=attributes)
+        if name is None:
+            if not attributes:
+                raise TagSyntaxError("Missing tag name", _empty_location())
+            return TagInfo("annotation", attributes=attributes)
 
-    kind = "self" if self_closing or name == "else" else "open"
-    return TagInfo(kind, name=name, attributes=attributes)
-
-
-def _parse_interpolation(tokens: List[Token]) -> TagInfo | None:
-    if tokens[0].type == "dollar" and len(tokens) >= 2 and tokens[1].type == "ident":
-        return TagInfo("interpolation", value=Variable(tokens[1].value))
-
-    if len(tokens) >= 3 and tokens[0].type == "ident" and tokens[1].value == "(":
-        func, idx = _parse_function(tokens, 0)
-        if func and idx == len(tokens):
-            return TagInfo("interpolation", value=func)
-
-    return None
-
-
-def _parse_attributes(
-    tokens: List[Token],
-    idx: int,
-    attributes: Dict[str, Any],
-    class_list: List[str],
-) -> int:
-    while idx < len(tokens):
-        token = tokens[idx]
-        if token.value in (".", "#"):
-            if idx + 1 < len(tokens) and tokens[idx + 1].type == "ident":
-                value = tokens[idx + 1].value
-                if token.value == ".":
-                    class_list.append(value)
-                else:
-                    attributes["id"] = value
-                idx += 2
-                continue
-            idx += 1
-            continue
-
-        if token.type == "ident" and idx + 1 < len(tokens) and tokens[idx + 1].value == "=":
-            key = token.value
-            value, next_idx = _parse_value(tokens, idx + 2)
-            if value is not None:
-                attributes[key] = value
-                idx = next_idx
-                continue
-        idx += 1
-
-    return idx
+        kind = "self" if self_closing or name == "else" else "open"
+        return TagInfo(kind, name=name, attributes=attributes)
+    except TagSyntaxError as exc:
+        return TagInfo(
+            "error",
+            error={
+                "message": exc.message,
+                "location": {
+                    "start": {"offset": exc.location.start.offset, "line": exc.location.start.line, "column": exc.location.start.column},
+                    "end": {"offset": exc.location.end.offset, "line": exc.location.end.line, "column": exc.location.end.column},
+                },
+            },
+        )
 
 
-def _parse_value(tokens: List[Token], idx: int) -> Tuple[Any | None, int]:
-    if idx >= len(tokens):
-        return None, idx
-    token = tokens[idx]
-
-    if token.type == "string":
-        return token.value, idx + 1
-    if token.type == "number":
-        return token.value, idx + 1
-    if token.type == "boolean":
-        return token.value, idx + 1
-    if token.type == "null":
-        return None, idx + 1
-    if token.type == "dollar" and idx + 1 < len(tokens) and tokens[idx + 1].type == "ident":
-        return Variable(tokens[idx + 1].value), idx + 2
-    if token.type == "ident":
-        if idx + 1 < len(tokens) and tokens[idx + 1].value == "(":
-            func, next_idx = _parse_function(tokens, idx)
-            return func, next_idx
-        return token.value, idx + 1
-    if token.value == "[":
-        return _parse_array(tokens, idx + 1)
-    if token.value == "{":
-        return _parse_object(tokens, idx + 1)
-
-    return None, idx
-
-
-def _parse_array(tokens: List[Token], idx: int) -> Tuple[List[Any], int]:
-    items: List[Any] = []
-    while idx < len(tokens):
-        if tokens[idx].value == "]":
-            return items, idx + 1
-        value, idx = _parse_value(tokens, idx)
-        if value is not None:
-            items.append(value)
-        if idx < len(tokens) and tokens[idx].value == ",":
-            idx += 1
-    return items, idx
-
-
-def _parse_object(tokens: List[Token], idx: int) -> Tuple[Dict[str, Any], int]:
-    output: Dict[str, Any] = {}
-    while idx < len(tokens):
-        if tokens[idx].value == "}":
-            return output, idx + 1
-        key_token = tokens[idx]
-        key = None
-        if key_token.type in ("ident", "string"):
-            key = key_token.value
-            idx += 1
-        if key is None or idx >= len(tokens) or tokens[idx].value != ":":
-            idx += 1
-            continue
-        idx += 1
-        value, idx = _parse_value(tokens, idx)
-        if key is not None:
-            output[key] = value
-        if idx < len(tokens) and tokens[idx].value == ",":
-            idx += 1
-    return output, idx
-
-
-def _parse_function(tokens: List[Token], idx: int) -> Tuple[Function | None, int]:
-    if idx >= len(tokens) or tokens[idx].type != "ident":
-        return None, idx
-    name = tokens[idx].value
-    idx += 1
-    if idx >= len(tokens) or tokens[idx].value != "(":
-        return None, idx
-    idx += 1
-    args: List[Any] = []
-    kwargs: Dict[str, Any] = {}
-    while idx < len(tokens):
-        if tokens[idx].value == ")":
-            return Function(name, args, kwargs), idx + 1
-        if tokens[idx].type == "ident" and idx + 1 < len(tokens) and tokens[idx + 1].value == "=":
-            key = tokens[idx].value
-            value, idx = _parse_value(tokens, idx + 2)
-            kwargs[key] = value
-        else:
-            value, idx = _parse_value(tokens, idx)
-            if value is not None:
-                args.append(value)
-        if idx < len(tokens) and tokens[idx].value == ",":
-            idx += 1
-    return Function(name, args, kwargs), idx
-
-
-def _tokenize(content: str) -> List[Token]:
-    tokens: List[Token] = []
-    i = 0
-    while i < len(content):
-        char = content[i]
-        if char.isspace():
-            i += 1
-            continue
-
-        if char in "=,[](){}:":
-            tokens.append(Token("symbol", char))
-            i += 1
-            continue
-
-        if char in ".#":
-            if i + 1 < len(content) and content[i + 1].isdigit():
-                number, i = _read_number(content, i)
-                tokens.append(Token("number", number))
-            else:
-                tokens.append(Token("symbol", char))
-                i += 1
-            continue
-
-        if char == "$":
-            tokens.append(Token("dollar", char))
-            i += 1
-            continue
-
-        if char in "\"'":
-            value, i = _read_string(content, i)
-            tokens.append(Token("string", value))
-            continue
-
-        if char.isdigit() or (char == "-" and i + 1 < len(content) and content[i + 1].isdigit()):
-            number, i = _read_number(content, i)
-            tokens.append(Token("number", number))
-            continue
-
-        if char.isalpha() or char in "_-":
-            ident, i = _read_identifier(content, i)
-            if ident == "true":
-                tokens.append(Token("boolean", True))
-            elif ident == "false":
-                tokens.append(Token("boolean", False))
-            elif ident == "null":
-                tokens.append(Token("null", None))
-            else:
-                tokens.append(Token("ident", ident))
-            continue
-
-        i += 1
-
-    return tokens
-
-
-def _read_identifier(content: str, idx: int) -> Tuple[str, int]:
-    start = idx
-    while idx < len(content) and (content[idx].isalnum() or content[idx] in "_-"):
-        idx += 1
-    return content[start:idx], idx
-
-
-def _read_number(content: str, idx: int) -> Tuple[int | float, int]:
-    start = idx
-    if content[idx] == "-":
-        idx += 1
-    while idx < len(content) and content[idx].isdigit():
-        idx += 1
-    if idx < len(content) and content[idx] == ".":
-        idx += 1
-        while idx < len(content) and content[idx].isdigit():
-            idx += 1
-    if idx < len(content) and content[idx] in "eE":
-        idx += 1
-        if idx < len(content) and content[idx] in "+-":
-            idx += 1
-        while idx < len(content) and content[idx].isdigit():
-            idx += 1
-    text = content[start:idx]
-    return (float(text) if any(ch in text for ch in ".eE") else int(text)), idx
-
-
-def _read_string(content: str, idx: int) -> Tuple[str, int]:
-    quote = content[idx]
-    idx += 1
-    value = []
-    while idx < len(content):
-        char = content[idx]
-        if char == quote:
-            return "".join(value), idx + 1
-        if char == "\\" and idx + 1 < len(content):
-            nxt = content[idx + 1]
-            if nxt == "n":
-                value.append("\n")
-            elif nxt == "r":
-                value.append("\r")
-            elif nxt == "t":
-                value.append("\t")
-            else:
-                value.append(nxt)
-            idx += 2
-            continue
-        value.append(char)
-        idx += 1
-    return "".join(value), idx
+def _empty_location() -> Location:
+    pos = Position(0, 1, 1)
+    return Location(pos, pos)

@@ -78,6 +78,10 @@ def _apply_block_tag(
             if stack and stack[-1].type == "tag" and stack[-1].tag == tag_info.name:
                 stack.pop()
         return
+    if tag_info.kind == "error":
+        error_node = Node("error", content=text, attributes={"error": tag_info.error})
+        stack[-1].children.append(error_node)
+        return
 
     inline_nodes = _parse_inline_text(text)
     node = Node("paragraph")
@@ -267,6 +271,8 @@ def _parse_inline_text(text: str) -> List[Node]:
                 add_node(Node("tag", tag=name, attributes=attributes, children=children))
             else:
                 add_text(text[start : end + 2])
+        elif tag.kind == "error":
+            add_node(Node("error", content=text[start : end + 2], attributes={"error": tag.error}))
         elif tag.kind == "annotation":
             add_node(Node("annotation", attributes=tag.attributes or {}))
         elif tag.kind == "interpolation":
