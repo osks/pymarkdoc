@@ -8,6 +8,14 @@ uv run pdoc -o docs/api pymarkdoc
 
 The generated HTML will be in `docs/api/`.
 
+## Fixture generation
+
+Regenerate Python and JS fixtures (requires Node + built Markdoc dist):
+
+```sh
+uv run pymarkdoc-fixtures
+```
+
 ## Fixture parity with JS Markdoc
 
 Generate JS fixture outputs (AST + HTML) for parity tests:

@@ -1,17 +1,28 @@
 [project]
 name = "pymarkdoc"
 version = "0.1.0"
-description = "Add your description here"
+description = "Python port of Markdoc"
+authors = [
+    { name = "Oskar Skoog", email = "oskar@osd.se" },
+]
 readme = "README.md"
 requires-python = ">=3.13"
+license = "MIT"
+license-files = ["LICENSE"]
 dependencies = [
     "markdown-it-py>=4.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
     "pdoc>=16.0.0",
     "pytest>=9.0.2",
+    "ruff>=0.1.0",
 ]
 
 [project.scripts]
 pymarkdoc-docs = "pymarkdoc._docs:main"
+pymarkdoc-fixtures = "pymarkdoc._fixtures:main"
 
 [build-system]
 requires = ["hatchling"]
@@ -19,3 +30,6 @@ build-backend = "hatchling.build"
 
 [tool.uv]
 package = true
+
+[tool.ruff]
+line-length = 100
