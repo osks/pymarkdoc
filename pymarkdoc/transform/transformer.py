@@ -27,6 +27,12 @@ def transform(node: Node | List[Node], config: Dict[str, Any] | None = None):
         return node.content or ""
     if node.type in ("variable", "function"):
         return node.attributes.get("value") if node.attributes else None
+    if node.type == "softbreak":
+        return "\n"
+    if node.type == "code":
+        return _render_code(node, None)
+    if node.type == "fence":
+        return _render_code(node, node.attributes.get("language"))
 
     schema = _find_schema(node, cfg)
     if schema and callable(schema.get("transform")):
@@ -81,3 +87,10 @@ def _render_attributes(node: Node, schema: Dict[str, Any] | None) -> Dict[str, A
         else:
             rendered[key] = value
     return rendered
+
+
+def _render_code(node: Node, language: str | None):
+    code_attrs: Dict[str, Any] = {}
+    if language:
+        code_attrs["class"] = f"language-{language}"
+    return Tag("pre", {}, [Tag("code", code_attrs, [node.content or ""])])

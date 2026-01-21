@@ -53,3 +53,22 @@ def test_if_else_tag():
     content = Markdoc.transform(ast, {"variables": {"flag": True}})
     html = Markdoc.renderers.html(content)
     assert html == "<p>Yes</p>"
+
+
+def test_fenced_code_block():
+    source = """```js
+const x = 1;
+```"""
+    ast = Markdoc.parse(source)
+    content = Markdoc.transform(ast)
+    html = Markdoc.renderers.html(content)
+    assert html == '<pre><code class="language-js">const x = 1;\n</code></pre>'
+
+
+def test_link_and_image():
+    source = "[Link](https://example.com) ![Alt](https://example.com/img.png)"
+    ast = Markdoc.parse(source)
+    content = Markdoc.transform(ast)
+    html = Markdoc.renderers.html(content)
+    assert '<a href="https://example.com">Link</a>' in html
+    assert '<img src="https://example.com/img.png" alt="Alt">' in html

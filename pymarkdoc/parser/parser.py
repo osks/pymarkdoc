@@ -215,6 +215,8 @@ def _apply_annotations(node: Node, children: List[Node]) -> List[Node]:
 def _attrs_to_dict(attrs) -> Dict[str, str]:
     if not attrs:
         return {}
+    if isinstance(attrs, dict):
+        return dict(attrs)
     return {key: value for key, value in attrs}
 
 
