@@ -291,7 +291,6 @@ def _is_single_tag_line(text: str) -> bool:
         return False
     if not stripped.endswith("%}"):
         return False
-    inner = stripped[2:-2]
     tag_end = find_tag_end(stripped, 0)
     return tag_end is not None and tag_end + 2 == len(stripped)
 

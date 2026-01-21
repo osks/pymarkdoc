@@ -2,6 +2,8 @@
 
 Python port of [Markdoc](https://markdoc.dev), a Markdown-based authoring framework with custom tags and annotations.
 
+Documentation: https://osks.github.io/markdoc-py/markdocpy.html
+
 ## Status
 
 This project is under active development. Core parsing, transforming, and HTML rendering are implemented, with fixture-based tests and JS parity fixtures.
