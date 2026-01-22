@@ -54,4 +54,7 @@ tags = {
     "table": {
         "transform": _transform_tag,
     },
+    "slot": {
+        "render": False,
+    },
 }

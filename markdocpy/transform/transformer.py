@@ -55,13 +55,13 @@ def transform(node: Node | List[Node], config: Dict[str, Any] | None = None):
         children = node.children
         if len(children) == 1 and isinstance(children[0], Node) and children[0].type == "paragraph":
             return Tag(
-                "li", _render_attributes(node, schema), _transform_children(children[0], cfg)
+                "li", _render_attributes(node, schema, cfg), _transform_children(children[0], cfg)
             )
-        return Tag("li", _render_attributes(node, schema), _transform_children(node, cfg))
+        return Tag("li", _render_attributes(node, schema, cfg), _transform_children(node, cfg))
 
     if schema is None:
         if node.type == "tag":
-            return Tag(node.tag, _render_attributes(node, schema), _transform_children(node, cfg))
+            return Tag(node.tag, _render_attributes(node, schema, cfg), _transform_children(node, cfg))
         return ""
 
     render = schema.get("render")
@@ -72,7 +72,7 @@ def transform(node: Node | List[Node], config: Dict[str, Any] | None = None):
 
     if isinstance(render, str):
         name = render.format(**node.attributes) if "{" in render else render
-        return Tag(name, _render_attributes(node, schema), _transform_children(node, cfg))
+        return Tag(name, _render_attributes(node, schema, cfg), _transform_children(node, cfg))
 
     return ""
 
@@ -87,7 +87,9 @@ def _find_schema(node: Node, config: Dict[str, Any]) -> Dict[str, Any] | None:
     return config.get("nodes", {}).get(node.type)
 
 
-def _render_attributes(node: Node, schema: Dict[str, Any] | None) -> Dict[str, Any]:
+def _render_attributes(
+    node: Node, schema: Dict[str, Any] | None, config: Dict[str, Any]
+) -> Dict[str, Any]:
     if not schema:
         return dict(node.attributes)
     rendered: Dict[str, Any] = {}
@@ -117,7 +119,7 @@ def _render_attributes(node: Node, schema: Dict[str, Any] | None) -> Dict[str, A
                 continue
             name = slot.get("render") if isinstance(slot, dict) else key
             if isinstance(name, str) and key in node.slots:
-                rendered[name] = transform(node.slots[key], None)
+                rendered[name] = transform(node.slots[key], config)
 
     return rendered
 

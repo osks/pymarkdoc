@@ -11,7 +11,7 @@ from ..ast.variable import Variable
 from .tag_parser import TagInfo, parse_tag_content
 
 
-def parse(tokens: List[Token]) -> Node:
+def parse(tokens: List[Token], *, slots: bool = False) -> Node:
     """Parse markdown-it-py tokens into a Markdoc AST."""
     root = Node("document", children=[])
     stack: List[Node] = [root]
@@ -22,7 +22,7 @@ def parse(tokens: List[Token]) -> Node:
         token = tokens[i]
 
         if token.type == "inline":
-            inline_nodes = _parse_inline_tokens(token.children or [])
+            inline_nodes = _parse_inline_tokens(token.children or [], slots=slots, parent=stack[-1])
             if stack[-1].type in ("paragraph", "heading"):
                 inline_nodes = _apply_annotations(stack[-1], inline_nodes)
             stack[-1].children.extend(inline_nodes)
@@ -34,7 +34,7 @@ def parse(tokens: List[Token]) -> Node:
             inline_text = inline_token.content if inline_token else ""
             if _is_single_tag_line(inline_text):
                 tag_info = _parse_block_tag(inline_text)
-                _apply_block_tag(tag_info, inline_text, stack, tag_stack)
+                _apply_block_tag(tag_info, inline_text, stack, tag_stack, slots=slots)
                 i += 3
                 continue
 
@@ -60,17 +60,20 @@ def parse(tokens: List[Token]) -> Node:
 
 
 def _apply_block_tag(
-    tag_info: TagInfo, text: str, stack: List[Node], tag_stack: List[Node]
+    tag_info: TagInfo, text: str, stack: List[Node], tag_stack: List[Node], *, slots: bool
 ) -> None:
     if tag_info.kind == "open":
         node = Node("tag", tag=tag_info.name, attributes=tag_info.attributes or {}, children=[])
-        stack[-1].children.append(node)
+        assigned = _maybe_assign_slot(node, stack[-1], slots)
+        if not assigned:
+            stack[-1].children.append(node)
         stack.append(node)
         tag_stack.append(node)
         return
     if tag_info.kind == "self":
         node = Node("tag", tag=tag_info.name, attributes=tag_info.attributes or {}, children=[])
-        stack[-1].children.append(node)
+        if not _maybe_assign_slot(node, stack[-1], slots):
+            stack[-1].children.append(node)
         return
     if tag_info.kind == "close":
         if tag_stack and tag_stack[-1].tag == tag_info.name:
@@ -83,7 +86,7 @@ def _apply_block_tag(
         stack[-1].children.append(error_node)
         return
 
-    inline_nodes = _parse_inline_text(text)
+    inline_nodes = _parse_inline_text(text, slots=slots, parent=stack[-1])
     node = Node("paragraph")
     node.children = _apply_annotations(node, inline_nodes)
     stack[-1].children.append(node)
@@ -128,7 +131,7 @@ def _node_from_single_token(token: Token) -> Node | None:
     return None
 
 
-def _parse_inline_tokens(tokens: List[Token]) -> List[Node]:
+def _parse_inline_tokens(tokens: List[Token], *, slots: bool, parent: Node) -> List[Node]:
     """Parse inline tokens into a list of AST nodes."""
     output: List[Node] = []
     stack: List[Tuple[Node, List[Node]]] = []
@@ -150,7 +153,7 @@ def _parse_inline_tokens(tokens: List[Token]) -> List[Node]:
     while i < len(tokens):
         token = tokens[i]
         if token.type == "text":
-            for node in _parse_inline_text(token.content):
+            for node in _parse_inline_text(token.content, slots=slots, parent=parent):
                 append_node(node)
         elif token.type == "softbreak":
             append_node(Node("softbreak", content="\n"))
@@ -227,7 +230,7 @@ def _attrs_to_dict(attrs) -> Dict[str, str]:
     return {key: value for key, value in attrs}
 
 
-def _parse_inline_text(text: str) -> List[Node]:
+def _parse_inline_text(text: str, *, slots: bool, parent: Node) -> List[Node]:
     """Parse inline Markdoc tag syntax in a text run."""
     result: List[Node] = []
     stack: List[Tuple[str, Dict[str, object], List[Node]]] = []
@@ -262,13 +265,17 @@ def _parse_inline_text(text: str) -> List[Node]:
         inner = text[start + 2 : end]
         tag = parse_tag_content(inner)
         if tag.kind == "self":
-            add_node(Node("tag", tag=tag.name, attributes=tag.attributes or {}))
+            node = Node("tag", tag=tag.name, attributes=tag.attributes or {})
+            if not _maybe_assign_slot(node, parent, slots):
+                add_node(node)
         elif tag.kind == "open":
             stack.append((tag.name or "", tag.attributes or {}, []))
         elif tag.kind == "close":
             if stack and stack[-1][0] == tag.name:
                 name, attributes, children = stack.pop()
-                add_node(Node("tag", tag=name, attributes=attributes, children=children))
+                node = Node("tag", tag=name, attributes=attributes, children=children)
+                if not _maybe_assign_slot(node, parent, slots):
+                    add_node(node)
             else:
                 add_text(text[start : end + 2])
         elif tag.kind == "error":
@@ -299,6 +306,18 @@ def _is_single_tag_line(text: str) -> bool:
         return False
     tag_end = find_tag_end(stripped, 0)
     return tag_end is not None and tag_end + 2 == len(stripped)
+
+
+def _maybe_assign_slot(node: Node, parent: Node, slots: bool) -> bool:
+    if not slots:
+        return False
+    if node.tag != "slot":
+        return False
+    name = node.attributes.get("primary")
+    if isinstance(name, str):
+        parent.slots[name] = node
+        return True
+    return False
 
 
 def _parse_block_tag(text: str) -> TagInfo:

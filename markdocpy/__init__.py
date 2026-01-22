@@ -33,7 +33,7 @@ def parse(
     _ = file, slots, location
     tokenizer = Tokenizer()
     tokens = tokenizer.tokenize(content)
-    return _parse_tokens(tokens)
+    return _parse_tokens(tokens, slots=slots)
 
 
 def resolve(content: Node | List[Node], config: Dict[str, Any]):

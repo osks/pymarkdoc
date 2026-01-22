@@ -13,3 +13,11 @@ def test_id_validation_reports_error():
     ast = Markdoc.parse(source)
     errors = Markdoc.validate(ast)
     assert any(err["id"] == "attribute-value-invalid" for err in errors)
+
+
+def test_child_validation_warns():
+    source = "{% note %}Text{% /note %}"
+    ast = Markdoc.parse(source)
+    config = {"tags": {"note": {"render": "note", "children": ["heading"]}}}
+    errors = Markdoc.validate(ast, config)
+    assert any(err["id"] == "child-invalid" for err in errors)
