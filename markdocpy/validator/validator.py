@@ -264,7 +264,7 @@ def _validate_function_value(value: Any, config: Dict[str, Any]) -> List[Dict[st
 
 
 def _function_parameters(value: Any) -> Dict[str, Any]:
-    params = {"args": list(value.args)}
+    params = {index: arg for index, arg in enumerate(value.args)}
     params.update(value.kwargs)
     return params
 

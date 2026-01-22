@@ -5,6 +5,7 @@ from typing import Any, Dict, List
 from ..ast.node import Node
 from ..ast.tag import Tag
 from ..schema.nodes import nodes as default_nodes
+from ..schema.functions import functions as default_functions
 from ..schema.tags import tags as default_tags
 from ..schema_types import ClassType, IdType
 
@@ -22,6 +23,7 @@ def merge_config(config: Dict[str, Any] | None = None) -> Dict[str, Any]:
         **config,
         "nodes": {**default_nodes, **config.get("nodes", {})},
         "tags": {**default_tags, **config.get("tags", {})},
+        "functions": {**default_functions, **config.get("functions", {})},
         "global_attributes": {**global_attributes, **config.get("global_attributes", {})},
     }
 

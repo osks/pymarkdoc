@@ -72,6 +72,17 @@ def test_function_parameter_validation():
     assert "parameter-type-invalid" in ids
 
 
+def test_function_positional_parameter_validation():
+    source = "Result {% sum(1) %}"
+    ast = Markdoc.parse(source)
+    config = {
+        "validation": {"validateFunctions": True},
+        "functions": {"sum": {"parameters": {0: {"type": str}}}},
+    }
+    errors = Markdoc.validate(ast, config)
+    assert any(err["id"] == "parameter-type-invalid" for err in errors)
+
+
 def test_variable_validation_unknown_variable():
     source = "Hello {% $name %}"
     ast = Markdoc.parse(source)
