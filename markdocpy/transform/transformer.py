@@ -35,6 +35,8 @@ def transform(node: Node | List[Node], config: Dict[str, Any] | None = None):
         return [transform(child, cfg) for child in node.children]
     if node.type == "text":
         return node.content or ""
+    if node.type == "code_inline":
+        return Tag("code", {}, [node.content or ""])
     if node.type in ("variable", "function"):
         return node.attributes.get("value") if node.attributes else None
     if node.type == "softbreak":
@@ -53,15 +55,21 @@ def transform(node: Node | List[Node], config: Dict[str, Any] | None = None):
         return Tag(name, {}, _transform_children(node, cfg))
     if node.type == "item":
         children = node.children
-        if len(children) == 1 and isinstance(children[0], Node) and children[0].type == "paragraph":
-            return Tag(
-                "li", _render_attributes(node, schema, cfg), _transform_children(children[0], cfg)
-            )
+        if children and isinstance(children[0], Node) and children[0].type == "paragraph":
+            if len(children) == 1:
+                return Tag(
+                    "li", _render_attributes(node, schema, cfg), _transform_children(children[0], cfg)
+                )
+            flattened = [
+                *(_transform_children(children[0], cfg)),
+                *[transform(child, cfg) for child in children[1:]],
+            ]
+            return Tag("li", _render_attributes(node, schema, cfg), flattened)
         return Tag("li", _render_attributes(node, schema, cfg), _transform_children(node, cfg))
 
     if schema is None:
         if node.type == "tag":
-            return Tag(node.tag, _render_attributes(node, schema, cfg), _transform_children(node, cfg))
+            return _transform_children(node, cfg)
         return ""
 
     render = schema.get("render")

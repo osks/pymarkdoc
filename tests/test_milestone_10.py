@@ -4,7 +4,7 @@ import markdocpy as Markdoc
 def test_block_tag_wraps_paragraph():
     source = "{% note %}\n\nHello\n\n{% /note %}"
     ast = Markdoc.parse(source)
-    content = Markdoc.transform(ast)
+    content = Markdoc.transform(ast, {"tags": {"note": {"render": "note"}}})
     html = Markdoc.renderers.html(content)
     assert html == "<note><p>Hello</p></note>"
 

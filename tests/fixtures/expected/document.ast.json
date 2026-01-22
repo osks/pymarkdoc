@@ -1,0 +1,585 @@
+{
+  "attributes": {},
+  "children": [
+    {
+      "attributes": {
+        "level": 1
+      },
+      "children": [
+        {
+          "attributes": {},
+          "children": [],
+          "content": "Markdoc Py",
+          "tag": null,
+          "type": "text"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "heading"
+    },
+    {
+      "attributes": {},
+      "children": [
+        {
+          "attributes": {},
+          "children": [],
+          "content": "Intro paragraph with ",
+          "tag": null,
+          "type": "text"
+        },
+        {
+          "attributes": {},
+          "children": [
+            {
+              "attributes": {},
+              "children": [],
+              "content": "emphasis",
+              "tag": null,
+              "type": "text"
+            }
+          ],
+          "content": null,
+          "tag": null,
+          "type": "em"
+        },
+        {
+          "attributes": {},
+          "children": [],
+          "content": ", ",
+          "tag": null,
+          "type": "text"
+        },
+        {
+          "attributes": {},
+          "children": [
+            {
+              "attributes": {},
+              "children": [],
+              "content": "strong",
+              "tag": null,
+              "type": "text"
+            }
+          ],
+          "content": null,
+          "tag": null,
+          "type": "strong"
+        },
+        {
+          "attributes": {},
+          "children": [],
+          "content": ", and ",
+          "tag": null,
+          "type": "text"
+        },
+        {
+          "attributes": {},
+          "children": [],
+          "content": "inline code",
+          "tag": null,
+          "type": "code_inline"
+        },
+        {
+          "attributes": {},
+          "children": [],
+          "content": ".",
+          "tag": null,
+          "type": "text"
+        },
+        {
+          "attributes": {},
+          "children": [],
+          "content": "\n",
+          "tag": null,
+          "type": "softbreak"
+        },
+        {
+          "attributes": {},
+          "children": [],
+          "content": "Inline tag ",
+          "tag": null,
+          "type": "text"
+        },
+        {
+          "attributes": {
+            "color": "green"
+          },
+          "children": [
+            {
+              "attributes": {},
+              "children": [],
+              "content": "New",
+              "tag": null,
+              "type": "text"
+            }
+          ],
+          "content": null,
+          "tag": "badge",
+          "type": "tag"
+        },
+        {
+          "attributes": {},
+          "children": [],
+          "content": " keeps moving.",
+          "tag": null,
+          "type": "text"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "paragraph"
+    },
+    {
+      "attributes": {
+        "title": "Heads up"
+      },
+      "children": [
+        {
+          "attributes": {},
+          "children": [
+            {
+              "attributes": {},
+              "children": [],
+              "content": "This is a callout with a ",
+              "tag": null,
+              "type": "text"
+            },
+            {
+              "attributes": {
+                "href": "https://example.com"
+              },
+              "children": [
+                {
+                  "attributes": {},
+                  "children": [],
+                  "content": "link",
+                  "tag": null,
+                  "type": "text"
+                }
+              ],
+              "content": null,
+              "tag": null,
+              "type": "link"
+            },
+            {
+              "attributes": {},
+              "children": [],
+              "content": ".",
+              "tag": null,
+              "type": "text"
+            }
+          ],
+          "content": null,
+          "tag": null,
+          "type": "paragraph"
+        }
+      ],
+      "content": null,
+      "tag": "note",
+      "type": "tag"
+    },
+    {
+      "attributes": {
+        "class": "section",
+        "id": "media",
+        "level": 2
+      },
+      "children": [
+        {
+          "attributes": {},
+          "children": [],
+          "content": "Media",
+          "tag": null,
+          "type": "text"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "heading"
+    },
+    {
+      "attributes": {},
+      "children": [
+        {
+          "attributes": {
+            "alt": "Diagram",
+            "src": "https://example.com/diagram.png",
+            "title": "Diagram"
+          },
+          "children": [],
+          "content": null,
+          "tag": null,
+          "type": "image"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "paragraph"
+    },
+    {
+      "attributes": {},
+      "children": [
+        {
+          "attributes": {},
+          "children": [
+            {
+              "attributes": {},
+              "children": [],
+              "content": "Blockquote text continues here.",
+              "tag": null,
+              "type": "text"
+            }
+          ],
+          "content": null,
+          "tag": null,
+          "type": "paragraph"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "blockquote"
+    },
+    {
+      "attributes": {
+        "level": 3
+      },
+      "children": [
+        {
+          "attributes": {},
+          "children": [],
+          "content": "Lists",
+          "tag": null,
+          "type": "text"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "heading"
+    },
+    {
+      "attributes": {
+        "ordered": false
+      },
+      "children": [
+        {
+          "attributes": {},
+          "children": [
+            {
+              "attributes": {},
+              "children": [
+                {
+                  "attributes": {},
+                  "children": [],
+                  "content": "Alpha",
+                  "tag": null,
+                  "type": "text"
+                }
+              ],
+              "content": null,
+              "tag": null,
+              "type": "paragraph"
+            }
+          ],
+          "content": null,
+          "tag": null,
+          "type": "item"
+        },
+        {
+          "attributes": {},
+          "children": [
+            {
+              "attributes": {},
+              "children": [
+                {
+                  "attributes": {},
+                  "children": [],
+                  "content": "Beta",
+                  "tag": null,
+                  "type": "text"
+                }
+              ],
+              "content": null,
+              "tag": null,
+              "type": "paragraph"
+            },
+            {
+              "attributes": {
+                "ordered": false
+              },
+              "children": [
+                {
+                  "attributes": {},
+                  "children": [
+                    {
+                      "attributes": {},
+                      "children": [
+                        {
+                          "attributes": {},
+                          "children": [],
+                          "content": "Beta one",
+                          "tag": null,
+                          "type": "text"
+                        }
+                      ],
+                      "content": null,
+                      "tag": null,
+                      "type": "paragraph"
+                    }
+                  ],
+                  "content": null,
+                  "tag": null,
+                  "type": "item"
+                },
+                {
+                  "attributes": {},
+                  "children": [
+                    {
+                      "attributes": {},
+                      "children": [
+                        {
+                          "attributes": {},
+                          "children": [],
+                          "content": "Beta two",
+                          "tag": null,
+                          "type": "text"
+                        }
+                      ],
+                      "content": null,
+                      "tag": null,
+                      "type": "paragraph"
+                    }
+                  ],
+                  "content": null,
+                  "tag": null,
+                  "type": "item"
+                }
+              ],
+              "content": null,
+              "tag": null,
+              "type": "list"
+            }
+          ],
+          "content": null,
+          "tag": null,
+          "type": "item"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "list"
+    },
+    {
+      "attributes": {
+        "ordered": true
+      },
+      "children": [
+        {
+          "attributes": {},
+          "children": [
+            {
+              "attributes": {},
+              "children": [
+                {
+                  "attributes": {},
+                  "children": [],
+                  "content": "First",
+                  "tag": null,
+                  "type": "text"
+                }
+              ],
+              "content": null,
+              "tag": null,
+              "type": "paragraph"
+            }
+          ],
+          "content": null,
+          "tag": null,
+          "type": "item"
+        },
+        {
+          "attributes": {},
+          "children": [
+            {
+              "attributes": {},
+              "children": [
+                {
+                  "attributes": {},
+                  "children": [],
+                  "content": "Second",
+                  "tag": null,
+                  "type": "text"
+                }
+              ],
+              "content": null,
+              "tag": null,
+              "type": "paragraph"
+            }
+          ],
+          "content": null,
+          "tag": null,
+          "type": "item"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "list"
+    },
+    {
+      "attributes": {},
+      "children": [],
+      "content": null,
+      "tag": null,
+      "type": "hr"
+    },
+    {
+      "attributes": {},
+      "children": [
+        {
+          "attributes": {},
+          "children": [
+            {
+              "attributes": {},
+              "children": [
+                {
+                  "attributes": {},
+                  "children": [
+                    {
+                      "attributes": {},
+                      "children": [],
+                      "content": "Name",
+                      "tag": null,
+                      "type": "text"
+                    }
+                  ],
+                  "content": null,
+                  "tag": null,
+                  "type": "th"
+                },
+                {
+                  "attributes": {},
+                  "children": [
+                    {
+                      "attributes": {},
+                      "children": [],
+                      "content": "Value",
+                      "tag": null,
+                      "type": "text"
+                    }
+                  ],
+                  "content": null,
+                  "tag": null,
+                  "type": "th"
+                }
+              ],
+              "content": null,
+              "tag": null,
+              "type": "tr"
+            }
+          ],
+          "content": null,
+          "tag": null,
+          "type": "thead"
+        },
+        {
+          "attributes": {},
+          "children": [
+            {
+              "attributes": {},
+              "children": [
+                {
+                  "attributes": {},
+                  "children": [
+                    {
+                      "attributes": {},
+                      "children": [],
+                      "content": "One",
+                      "tag": null,
+                      "type": "text"
+                    }
+                  ],
+                  "content": null,
+                  "tag": null,
+                  "type": "td"
+                },
+                {
+                  "attributes": {},
+                  "children": [
+                    {
+                      "attributes": {},
+                      "children": [],
+                      "content": "1",
+                      "tag": null,
+                      "type": "text"
+                    }
+                  ],
+                  "content": null,
+                  "tag": null,
+                  "type": "td"
+                }
+              ],
+              "content": null,
+              "tag": null,
+              "type": "tr"
+            },
+            {
+              "attributes": {},
+              "children": [
+                {
+                  "attributes": {},
+                  "children": [
+                    {
+                      "attributes": {},
+                      "children": [],
+                      "content": "Two",
+                      "tag": null,
+                      "type": "text"
+                    }
+                  ],
+                  "content": null,
+                  "tag": null,
+                  "type": "td"
+                },
+                {
+                  "attributes": {},
+                  "children": [
+                    {
+                      "attributes": {},
+                      "children": [],
+                      "content": "2",
+                      "tag": null,
+                      "type": "text"
+                    }
+                  ],
+                  "content": null,
+                  "tag": null,
+                  "type": "td"
+                }
+              ],
+              "content": null,
+              "tag": null,
+              "type": "tr"
+            }
+          ],
+          "content": null,
+          "tag": null,
+          "type": "tbody"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "table"
+    },
+    {
+      "attributes": {
+        "language": "js"
+      },
+      "children": [],
+      "content": "const count = 2;\n",
+      "tag": null,
+      "type": "fence"
+    }
+  ],
+  "content": null,
+  "tag": null,
+  "type": "document"
+}

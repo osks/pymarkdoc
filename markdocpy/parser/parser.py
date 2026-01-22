@@ -160,7 +160,7 @@ def _parse_inline_tokens(tokens: List[Token], *, slots: bool, parent: Node) -> L
         elif token.type == "hardbreak":
             append_node(Node("hardbreak", content="\n"))
         elif token.type == "code_inline":
-            append_node(Node("text", content=token.content))
+            append_node(Node("code_inline", content=token.content))
         elif token.type == "em_open":
             stack.append((Node("em"), []))
         elif token.type == "em_close":
@@ -265,7 +265,7 @@ def _parse_inline_text(text: str, *, slots: bool, parent: Node) -> List[Node]:
         inner = text[start + 2 : end]
         tag = parse_tag_content(inner)
         if tag.kind == "self":
-            node = Node("tag", tag=tag.name, attributes=tag.attributes or {})
+            node = Node("tag", tag=tag.name, attributes=tag.attributes or {}, inline=True)
             if not _maybe_assign_slot(node, parent, slots):
                 add_node(node)
         elif tag.kind == "open":
@@ -273,7 +273,7 @@ def _parse_inline_text(text: str, *, slots: bool, parent: Node) -> List[Node]:
         elif tag.kind == "close":
             if stack and stack[-1][0] == tag.name:
                 name, attributes, children = stack.pop()
-                node = Node("tag", tag=name, attributes=attributes, children=children)
+                node = Node("tag", tag=name, attributes=attributes, children=children, inline=True)
                 if not _maybe_assign_slot(node, parent, slots):
                     add_node(node)
             else:
@@ -281,12 +281,12 @@ def _parse_inline_text(text: str, *, slots: bool, parent: Node) -> List[Node]:
         elif tag.kind == "error":
             add_node(Node("error", content=text[start : end + 2], attributes={"error": tag.error}))
         elif tag.kind == "annotation":
-            add_node(Node("annotation", attributes=tag.attributes or {}))
+            add_node(Node("annotation", attributes=tag.attributes or {}, inline=True))
         elif tag.kind == "interpolation":
             if isinstance(tag.value, Variable):
-                add_node(Node("variable", attributes={"value": tag.value}))
+                add_node(Node("variable", attributes={"value": tag.value}, inline=True))
             elif isinstance(tag.value, Function):
-                add_node(Node("function", attributes={"value": tag.value}))
+                add_node(Node("function", attributes={"value": tag.value}, inline=True))
         else:
             add_text(text[start : end + 2])
         pos = end + 2

@@ -12,6 +12,7 @@ nodes = {
     "item": {"render": "li"},
     "blockquote": {"render": "blockquote"},
     "code": {"render": "pre"},
+    "code_inline": {"render": "code"},
     "fence": {"render": "pre"},
     "hr": {"render": "hr", "self_closing": True},
     "table": {"render": "table"},

@@ -23,5 +23,7 @@ def test_void_elements_do_not_close():
 def test_nested_tags_render():
     source = "{% note %}Hello {% tag %}World{% /tag %}{% /note %}"
     ast = Markdoc.parse(source)
-    html = Markdoc.renderers.html(Markdoc.transform(ast))
+    html = Markdoc.renderers.html(
+        Markdoc.transform(ast, {"tags": {"note": {"render": "note"}, "tag": {"render": "tag"}}})
+    )
     assert html == "<p><note>Hello <tag>World</tag></note></p>"

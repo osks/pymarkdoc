@@ -28,6 +28,7 @@ def _validate_node(node: Node | List[Node], config: Dict[str, Any], errors: List
 
     schema = _find_schema(node, config)
     if schema:
+        _validate_placement(node, schema, errors)
         _validate_attributes(node, schema, config, errors)
         _validate_slots(node, schema, errors)
         _validate_children(node, schema, errors)
@@ -37,6 +38,11 @@ def _validate_node(node: Node | List[Node], config: Dict[str, Any], errors: List
     for child in node.children:
         if isinstance(child, Node):
             _validate_node(child, config, errors)
+
+    if node.type == "function":
+        errors.extend(_validate_function(node, config))
+    if node.type == "variable":
+        errors.extend(_validate_variable(node, config))
 
 
 def _find_schema(node: Node, config: Dict[str, Any]) -> Dict[str, Any] | None:
@@ -84,6 +90,14 @@ def _validate_attributes(
         if isinstance(expected, type) and hasattr(expected, "validate"):
             instance = expected()
             errors.extend(instance.validate(node.attributes.get(key), config, key))
+            continue
+        if config.get("validation", {}).get("validateFunctions") and _is_function(
+            node.attributes.get(key)
+        ):
+            errors.extend(_validate_function_value(node.attributes.get(key), config))
+            continue
+        if _is_variable(node.attributes.get(key)):
+            errors.extend(_validate_variable_value(node.attributes.get(key), config))
             continue
         if not _check_type(node.attributes.get(key), expected):
             errors.append(
@@ -148,6 +162,114 @@ def _validate_children(node: Node, schema: Dict[str, Any], errors: List[Dict[str
                     "message": f"Can't nest '{child.type}' in '{node.tag or node.type}'",
                 }
             )
+
+
+def _validate_placement(node: Node, schema: Dict[str, Any], errors: List[Dict[str, Any]]):
+    inline = schema.get("inline")
+    if inline is None:
+        return
+    if bool(node.inline) != bool(inline):
+        errors.append(
+            {
+                "id": "tag-placement-invalid",
+                "level": "critical",
+                "message": f"'{node.tag}' tag should be {'inline' if inline else 'block'}",
+            }
+        )
+
+
+def _validate_function(node: Node, config: Dict[str, Any]) -> List[Dict[str, Any]]:
+    value = node.attributes.get("value")
+    if not _is_function(value):
+        return []
+    if not config.get("validation", {}).get("validateFunctions"):
+        return []
+    return _validate_function_value(value, config)
+
+
+def _validate_function_value(value: Any, config: Dict[str, Any]) -> List[Dict[str, Any]]:
+    errors: List[Dict[str, Any]] = []
+    fn = config.get("functions", {}).get(value.name)
+    if fn is None:
+        return [
+            {
+                "id": "function-undefined",
+                "level": "critical",
+                "message": f"Undefined function: '{value.name}'",
+            }
+        ]
+
+    schema = fn if isinstance(fn, dict) else {}
+    parameters = _function_parameters(value)
+    param_schema = schema.get("parameters", {}) if isinstance(schema, dict) else {}
+
+    for key, param_value in parameters.items():
+        if key not in param_schema:
+            errors.append(
+                {
+                    "id": "parameter-undefined",
+                    "level": "error",
+                    "message": f"Invalid parameter: '{key}'",
+                }
+            )
+            continue
+        expected = param_schema[key].get("type")
+        if expected and not _check_type(param_value, expected):
+            errors.append(
+                {
+                    "id": "parameter-type-invalid",
+                    "level": "error",
+                    "message": f"Parameter '{key}' must be type of '{_type_to_string(expected)}'",
+                }
+            )
+
+    for key, definition in param_schema.items():
+        if definition.get("required") and key not in parameters:
+            errors.append(
+                {
+                    "id": "parameter-missing-required",
+                    "level": "error",
+                    "message": f"Missing required parameter: '{key}'",
+                }
+            )
+
+    return errors
+
+
+def _function_parameters(value: Any) -> Dict[str, Any]:
+    params = {"args": list(value.args)}
+    params.update(value.kwargs)
+    return params
+
+
+def _validate_variable(node: Node, config: Dict[str, Any]) -> List[Dict[str, Any]]:
+    value = node.attributes.get("value")
+    if not _is_variable(value):
+        return []
+    return _validate_variable_value(value, config)
+
+
+def _validate_variable_value(value: Any, config: Dict[str, Any]) -> List[Dict[str, Any]]:
+    variables = config.get("variables")
+    if not isinstance(variables, dict):
+        return []
+    if value.name not in variables:
+        return [
+            {
+                "id": "variable-undefined",
+                "level": "error",
+                "message": f"Undefined variable: '{value.name}'",
+            }
+        ]
+    return []
+
+
+def _is_function(value: Any) -> bool:
+    return hasattr(value, "name") and hasattr(value, "args") and hasattr(value, "kwargs")
+
+
+def _is_variable(value: Any) -> bool:
+    return hasattr(value, "name") and not hasattr(value, "args")
 
 
 def _check_type(value: Any, expected: Any) -> bool:
