@@ -42,6 +42,51 @@ def _transform_tag(node: Node, config: Dict[str, Any]):
     )
 
 
+class PartialFile:
+    def validate(self, value: Any, config: Dict[str, Any], _key: str):
+        partials = config.get("partials", {})
+        if not isinstance(partials, dict) or value not in partials:
+            return [
+                {
+                    "id": "attribute-value-invalid",
+                    "level": "error",
+                    "message": f"Partial `{value}` not found. The 'file' attribute must be set in `config.partials`",
+                }
+            ]
+        return []
+
+
+def _transform_partial(node: Node, config: Dict[str, Any]):
+    from ..transform.transformer import transform
+
+    partials = config.get("partials", {})
+    file = node.attributes.get("file")
+    partial = partials.get(file) if isinstance(partials, dict) else None
+    if not partial:
+        return None
+
+    variables = node.attributes.get("variables") or {}
+    scoped = {
+        **config,
+        "variables": {
+            **(config.get("variables") or {}),
+            **(variables if isinstance(variables, dict) else {}),
+            "$$partial:filename": file,
+        },
+    }
+
+    def transform_part(part: Node):
+        resolved = part.resolve(scoped)
+        return transform(resolved, scoped)
+
+    if isinstance(partial, list):
+        output = []
+        for part in partial:
+            output.extend(transform_part(part))
+        return output
+    return transform_part(partial)
+
+
 tags = {
     "if": {
         "attributes": {"primary": {"render": False}},
@@ -53,6 +98,15 @@ tags = {
     },
     "table": {
         "transform": _transform_tag,
+    },
+    "partial": {
+        "inline": False,
+        "self_closing": True,
+        "attributes": {
+            "file": {"type": PartialFile, "render": False, "required": True},
+            "variables": {"type": dict, "render": False},
+        },
+        "transform": _transform_partial,
     },
     "slot": {
         "render": False,
