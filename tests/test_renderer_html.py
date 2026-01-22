@@ -27,3 +27,18 @@ def test_nested_tags_render():
         Markdoc.transform(ast, {"tags": {"note": {"render": "note"}, "tag": {"render": "tag"}}})
     )
     assert html == "<p><note>Hello <tag>World</tag></note></p>"
+
+
+def test_boolean_attributes_render_without_value():
+    node = Markdoc.create_element("flag", {"enabled": True, "disabled": False, "data": "x"}, "Body")
+    html = Markdoc.renderers.html(node)
+    assert html == '<flag enabled data="x">Body</flag>'
+
+
+def test_custom_self_closing_tags_do_not_close():
+    source = "{% icon /%}"
+    ast = Markdoc.parse(source)
+    html = Markdoc.renderers.html(
+        Markdoc.transform(ast, {"tags": {"icon": {"render": "icon", "self_closing": True}}})
+    )
+    assert html == "<icon>"

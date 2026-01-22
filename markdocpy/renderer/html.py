@@ -40,10 +40,15 @@ def render(node: Any) -> str:
 
     output = [f"<{name}"]
     for key, value in attributes.items():
+        if value is True:
+            output.append(f" {key.lower()}")
+            continue
+        if value is False or value is None:
+            continue
         output.append(f' {key.lower()}="{escape(str(value), quote=True)}"')
     output.append(">")
 
-    if name in _VOID_ELEMENTS:
+    if name in _VOID_ELEMENTS or getattr(node, "self_closing", False):
         return "".join(output)
 
     if children:

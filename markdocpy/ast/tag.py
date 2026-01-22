@@ -11,6 +11,7 @@ class Tag:
     name: Optional[str]
     attributes: Mapping[str, Any] = field(default_factory=dict)
     children: List[Any] = field(default_factory=list)
+    self_closing: bool = False
 
     @staticmethod
     def is_tag(value: Any) -> bool:

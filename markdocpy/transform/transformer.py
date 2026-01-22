@@ -52,20 +52,25 @@ def transform(node: Node | List[Node], config: Dict[str, Any] | None = None):
 
     if node.type == "list":
         name = "ol" if node.attributes.get("ordered") else "ul"
-        return Tag(name, {}, _transform_children(node, cfg))
+        return _make_tag(name, {}, _transform_children(node, cfg), schema)
     if node.type == "item":
         children = node.children
         if children and isinstance(children[0], Node) and children[0].type == "paragraph":
             if len(children) == 1:
-                return Tag(
-                    "li", _render_attributes(node, schema, cfg), _transform_children(children[0], cfg)
+                return _make_tag(
+                    "li",
+                    _render_attributes(node, schema, cfg),
+                    _transform_children(children[0], cfg),
+                    schema,
                 )
             flattened = [
                 *(_transform_children(children[0], cfg)),
                 *[transform(child, cfg) for child in children[1:]],
             ]
-            return Tag("li", _render_attributes(node, schema, cfg), flattened)
-        return Tag("li", _render_attributes(node, schema, cfg), _transform_children(node, cfg))
+            return _make_tag("li", _render_attributes(node, schema, cfg), flattened, schema)
+        return _make_tag(
+            "li", _render_attributes(node, schema, cfg), _transform_children(node, cfg), schema
+        )
 
     if schema is None:
         if node.type == "tag":
@@ -80,7 +85,7 @@ def transform(node: Node | List[Node], config: Dict[str, Any] | None = None):
 
     if isinstance(render, str):
         name = render.format(**node.attributes) if "{" in render else render
-        return Tag(name, _render_attributes(node, schema, cfg), _transform_children(node, cfg))
+        return _make_tag(name, _render_attributes(node, schema, cfg), _transform_children(node, cfg), schema)
 
     return ""
 
@@ -140,3 +145,10 @@ def _render_code(node: Node, language: str | None, *, fenced: bool):
             attrs["data-language"] = language
         return Tag("pre", attrs, [node.content or ""])
     return Tag("pre", {}, [node.content or ""])
+
+
+def _make_tag(
+    name: str | None, attributes: Dict[str, Any], children: List[Any], schema: Dict[str, Any] | None
+) -> Tag:
+    self_closing = bool(schema.get("self_closing")) if schema else False
+    return Tag(name, attributes, children, self_closing=self_closing)
