@@ -29,15 +29,12 @@ def _validate_node(node: Node | List[Node], config: Dict[str, Any], errors: List
     schema = _find_schema(node, config)
     if schema:
         _validate_placement(node, schema, errors)
+        _validate_parents(node, schema, config, errors)
         _validate_attributes(node, schema, config, errors)
         _validate_slots(node, schema, errors)
         _validate_children(node, schema, errors)
         if callable(schema.get("validate")):
             errors.extend(schema["validate"](node, config))
-
-    for child in node.children:
-        if isinstance(child, Node):
-            _validate_node(child, config, errors)
 
     if node.type == "function":
         errors.extend(_validate_function(node, config))
@@ -158,7 +155,7 @@ def _validate_children(node: Node, schema: Dict[str, Any], errors: List[Dict[str
             errors.append(
                 {
                     "id": "child-invalid",
-                    "level": "warning",
+                    "level": schema.get("errorLevel", "warning"),
                     "message": f"Can't nest '{child.type}' in '{node.tag or node.type}'",
                 }
             )
@@ -172,10 +169,40 @@ def _validate_placement(node: Node, schema: Dict[str, Any], errors: List[Dict[st
         errors.append(
             {
                 "id": "tag-placement-invalid",
-                "level": "critical",
+                "level": schema.get("errorLevel", "critical"),
                 "message": f"'{node.tag}' tag should be {'inline' if inline else 'block'}",
             }
         )
+
+
+def _validate_parents(
+    node: Node, schema: Dict[str, Any], config: Dict[str, Any], errors: List[Dict[str, Any]]
+):
+    allowed = schema.get("parents")
+    if not allowed:
+        return
+    parents = config.get("validation", {}).get("parents", [])
+    if not parents:
+        errors.append(
+            {
+                "id": "parent-invalid",
+                "level": schema.get("errorLevel", "warning"),
+                "message": f"'{node.tag or node.type}' cannot be at the document root",
+            }
+        )
+        return
+    for parent in reversed(parents):
+        if (parent.tag and parent.tag in allowed) or parent.type in allowed:
+            return
+        if parent.type not in ("paragraph",):
+            break
+    errors.append(
+        {
+            "id": "parent-invalid",
+            "level": schema.get("errorLevel", "warning"),
+            "message": f"'{node.tag or node.type}' cannot be nested in '{parents[-1].tag or parents[-1].type}'",
+        }
+    )
 
 
 def _validate_function(node: Node, config: Dict[str, Any]) -> List[Dict[str, Any]]:
