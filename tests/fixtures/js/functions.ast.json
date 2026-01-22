@@ -1,0 +1,136 @@
+{
+  "type": "document",
+  "attributes": {},
+  "children": [
+    {
+      "type": "paragraph",
+      "attributes": {},
+      "children": [
+        {
+          "type": "inline",
+          "attributes": {},
+          "children": [
+            {
+              "type": "tag",
+              "tag": "if",
+              "attributes": {
+                "primary": {
+                  "$type": "Function",
+                  "name": "and",
+                  "parameters": {
+                    "0": true,
+                    "1": {
+                      "$$mdtype": "Function",
+                      "name": "not",
+                      "parameters": {
+                        "0": false
+                      }
+                    }
+                  }
+                }
+              },
+              "children": [
+                {
+                  "type": "text",
+                  "attributes": {
+                    "content": "Yes"
+                  },
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "tag",
+              "tag": "if",
+              "attributes": {
+                "primary": {
+                  "$type": "Function",
+                  "name": "equals",
+                  "parameters": {
+                    "0": 1,
+                    "1": 1,
+                    "2": 1
+                  }
+                }
+              },
+              "children": [
+                {
+                  "type": "text",
+                  "attributes": {
+                    "content": "Equals"
+                  },
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "tag",
+              "tag": "if",
+              "attributes": {
+                "primary": {
+                  "$type": "Function",
+                  "name": "default",
+                  "parameters": {
+                    "0": {
+                      "$$mdtype": "Variable",
+                      "path": [
+                        "flag"
+                      ]
+                    },
+                    "1": true
+                  }
+                }
+              },
+              "children": [
+                {
+                  "type": "text",
+                  "attributes": {
+                    "content": "Default"
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "attributes": {},
+      "children": [
+        {
+          "type": "inline",
+          "attributes": {},
+          "children": [
+            {
+              "type": "text",
+              "attributes": {
+                "content": "Debug: "
+              },
+              "children": []
+            },
+            {
+              "type": "text",
+              "attributes": {
+                "content": {
+                  "$type": "Function",
+                  "name": "debug",
+                  "parameters": {
+                    "0": {
+                      "$$mdtype": "Variable",
+                      "path": [
+                        "data"
+                      ]
+                    }
+                  }
+                }
+              },
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -10,5 +10,7 @@
   {"name": "invalid_tag"},
   {"name": "unterminated_string"},
   {"name": "bad_object", "skip_js_html": true},
-  {"name": "document"}
+  {"name": "document"},
+  {"name": "functions", "config": "functions"},
+  {"name": "partial", "config": "partials"}
 ]

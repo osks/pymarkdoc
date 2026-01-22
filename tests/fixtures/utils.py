@@ -12,6 +12,12 @@ def fixture_configs():
     return {
         "interpolation": {"variables": {"name": "Ada"}, "functions": {"sum": sum_fn}},
         "custom_tag": {"tags": {"note": {"render": "note", "attributes": {"title": {}}}}},
+        "partials": {
+            "partials": {
+                "header.md": Markdoc.parse("# Header\n\nHello {% $name %}"),
+            }
+        },
+        "functions": {"variables": {"data": {"a": 1}}},
     }
 
 

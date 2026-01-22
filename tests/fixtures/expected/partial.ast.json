@@ -1,0 +1,50 @@
+{
+  "attributes": {},
+  "children": [
+    {
+      "attributes": {},
+      "children": [
+        {
+          "attributes": {},
+          "children": [],
+          "content": "Before",
+          "tag": null,
+          "type": "text"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "paragraph"
+    },
+    {
+      "attributes": {
+        "file": "header.md",
+        "variables": {
+          "name": "Ada"
+        }
+      },
+      "children": [],
+      "content": null,
+      "tag": "partial",
+      "type": "tag"
+    },
+    {
+      "attributes": {},
+      "children": [
+        {
+          "attributes": {},
+          "children": [],
+          "content": "After",
+          "tag": null,
+          "type": "text"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "paragraph"
+    }
+  ],
+  "content": null,
+  "tag": null,
+  "type": "document"
+}
