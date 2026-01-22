@@ -152,12 +152,27 @@ def _parse_inline_tokens(tokens: List[Token], *, slots: bool, parent: Node) -> L
     i = 0
     while i < len(tokens):
         token = tokens[i]
-        if token.type == "text":
-            for node in _parse_inline_text(token.content, slots=slots, parent=parent):
-                append_node(node)
-        elif token.type == "softbreak":
-            append_node(Node("softbreak", content="\n"))
-        elif token.type == "hardbreak":
+        if token.type in ("text", "softbreak"):
+            run_tokens = []
+            while i < len(tokens) and tokens[i].type in ("text", "softbreak"):
+                run_tokens.append(tokens[i])
+                i += 1
+            run_text = "".join(
+                "\n" if item.type == "softbreak" else item.content for item in run_tokens
+            )
+            parsed = _parse_inline_text(run_text, slots=slots, parent=parent)
+            for node in parsed:
+                if node.type == "text" and node.content and "\n" in node.content:
+                    parts = node.content.split("\n")
+                    for index, part in enumerate(parts):
+                        if part:
+                            append_node(Node("text", content=part))
+                        if index < len(parts) - 1:
+                            append_node(Node("softbreak", content="\n"))
+                else:
+                    append_node(node)
+            continue
+        if token.type == "hardbreak":
             append_node(Node("hardbreak", content="\n"))
         elif token.type == "code_inline":
             append_node(Node("code_inline", content=token.content))
