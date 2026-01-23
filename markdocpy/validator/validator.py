@@ -278,9 +278,28 @@ def _validate_variable(node: Node, config: Dict[str, Any]) -> List[Dict[str, Any
 
 def _validate_variable_value(value: Any, config: Dict[str, Any]) -> List[Dict[str, Any]]:
     variables = config.get("variables")
+    if callable(variables):
+        return []
     if not isinstance(variables, dict):
         return []
-    if value.name not in variables:
+    current = variables
+    missing = False
+    for segment in getattr(value, "path", []):
+        if isinstance(current, dict):
+            if segment not in current:
+                missing = True
+                break
+            current = current[segment]
+            continue
+        if isinstance(current, (list, tuple)):
+            if not isinstance(segment, int) or segment < 0 or segment >= len(current):
+                missing = True
+                break
+            current = current[segment]
+            continue
+        missing = True
+        break
+    if missing:
         return [
             {
                 "id": "variable-undefined",

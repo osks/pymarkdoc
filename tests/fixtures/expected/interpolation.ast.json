@@ -15,7 +15,9 @@
           "attributes": {
             "value": {
               "$type": "Variable",
-              "name": "name"
+              "path": [
+                "name"
+              ]
             }
           },
           "children": [],

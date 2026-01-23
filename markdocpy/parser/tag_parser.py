@@ -236,9 +236,7 @@ class Parser:
             return token.value
 
         if token.type == "dollar":
-            self.advance()
-            ident = self.expect("ident")
-            return Variable(ident.value)
+            return self.parse_variable()
 
         if token.type == "ident":
             next_token = self._peek_next()
@@ -342,6 +340,39 @@ class Parser:
     def _peek_is_symbol(self, value: str) -> bool:
         next_token = self._peek_next()
         return next_token is not None and next_token.type == "symbol" and next_token.value == value
+
+    def parse_variable(self) -> Variable:
+        self.expect("dollar")
+        path: List[Any] = []
+        token = self.peek()
+        if token is None:
+            raise TagSyntaxError("Expected variable", self._end_location())
+        if token.type == "ident":
+            path.append(self.advance().value)
+        elif token.type == "symbol" and token.value == "[":
+            self.advance()
+            path.append(self.parse_value())
+            self.expect("symbol", "]")
+        else:
+            raise TagSyntaxError("Expected variable", Location(token.start, token.end))
+
+        while True:
+            token = self.peek()
+            if token is None:
+                break
+            if token.type == "symbol" and token.value == ".":
+                self.advance()
+                ident = self.expect("ident")
+                path.append(ident.value)
+                continue
+            if token.type == "symbol" and token.value == "[":
+                self.advance()
+                path.append(self.parse_value())
+                self.expect("symbol", "]")
+                continue
+            break
+
+        return Variable(path)
 
 
 def _tokenize(content: str) -> List[Token]:

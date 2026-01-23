@@ -21,7 +21,10 @@
               "type": "text",
               "attributes": {
                 "content": {
-                  "$type": "Variable"
+                  "$type": "Variable",
+                  "path": [
+                    "name"
+                  ]
                 }
               },
               "children": []

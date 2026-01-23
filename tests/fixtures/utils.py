@@ -23,7 +23,7 @@ def fixture_configs():
 
 def serialize_value(value: Any):
     if isinstance(value, Markdoc.Variable):
-        return {"$type": "Variable", "name": value.name}
+        return {"$type": "Variable", "path": list(value.path)}
     if isinstance(value, Markdoc.Function):
         parameters = {"args": [serialize_value(v) for v in value.args]}
         parameters.update({k: serialize_value(v) for k, v in value.kwargs.items()})

@@ -51,7 +51,7 @@ function fixtureConfigs() {
 function serializeValue(value) {
   if (!value || typeof value !== "object") return value;
   if (value.$$mdtype === "Variable") {
-    return { $type: "Variable", name: value.name };
+    return { $type: "Variable", path: value.path || [value.name] };
   }
   if (value.$$mdtype === "Function") {
     return {
