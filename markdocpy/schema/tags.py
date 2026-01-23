@@ -82,7 +82,13 @@ def _transform_partial(node: Node, config: Dict[str, Any]):
     if isinstance(partial, list):
         output = []
         for part in partial:
-            output.extend(transform_part(part))
+            rendered = transform_part(part)
+            if rendered is None:
+                continue
+            if isinstance(rendered, list):
+                output.extend(rendered)
+            else:
+                output.append(rendered)
         return output
     return transform_part(partial)
 

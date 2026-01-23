@@ -16,3 +16,13 @@ def test_partial_missing_reports_error():
     ast = Markdoc.parse(source)
     errors = Markdoc.validate(ast, {"partials": {}})
     assert any(err["id"] == "attribute-value-invalid" for err in errors)
+
+
+def test_partial_list_renders_all_nodes():
+    partial_nodes = Markdoc.parse("# One\n\nTwo").children
+    source = '{% partial file="combo.md" /%}'
+    ast = Markdoc.parse(source)
+    html = Markdoc.renderers.html(
+        Markdoc.transform(ast, {"partials": {"combo.md": partial_nodes}})
+    )
+    assert html == "<h1>One</h1><p>Two</p>"
