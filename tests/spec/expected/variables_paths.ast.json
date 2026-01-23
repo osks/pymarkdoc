@@ -1,0 +1,67 @@
+{
+  "attributes": {},
+  "children": [
+    {
+      "attributes": {},
+      "children": [
+        {
+          "attributes": {},
+          "children": [],
+          "content": "User: ",
+          "tag": null,
+          "type": "text"
+        },
+        {
+          "attributes": {
+            "value": {
+              "$type": "Variable",
+              "path": [
+                "user",
+                "name"
+              ]
+            }
+          },
+          "children": [],
+          "content": null,
+          "tag": null,
+          "type": "variable"
+        },
+        {
+          "attributes": {},
+          "children": [],
+          "content": "\n",
+          "tag": null,
+          "type": "softbreak"
+        },
+        {
+          "attributes": {},
+          "children": [],
+          "content": "Flag: ",
+          "tag": null,
+          "type": "text"
+        },
+        {
+          "attributes": {
+            "value": {
+              "$type": "Variable",
+              "path": [
+                "flags",
+                0
+              ]
+            }
+          },
+          "children": [],
+          "content": null,
+          "tag": null,
+          "type": "variable"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "paragraph"
+    }
+  ],
+  "content": null,
+  "tag": null,
+  "type": "document"
+}

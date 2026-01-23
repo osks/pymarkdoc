@@ -1,0 +1,123 @@
+{
+  "type": "document",
+  "attributes": {},
+  "children": [
+    {
+      "type": "tag",
+      "tag": "note",
+      "attributes": {},
+      "children": [
+        {
+          "type": "paragraph",
+          "attributes": {},
+          "children": [
+            {
+              "type": "inline",
+              "attributes": {},
+              "children": [
+                {
+                  "type": "text",
+                  "attributes": {
+                    "content": "Block tag"
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "attributes": {},
+      "children": [
+        {
+          "type": "inline",
+          "attributes": {},
+          "children": [
+            {
+              "type": "text",
+              "attributes": {
+                "content": "Inline "
+              },
+              "children": []
+            },
+            {
+              "type": "tag",
+              "tag": "note",
+              "attributes": {},
+              "children": [
+                {
+                  "type": "text",
+                  "attributes": {
+                    "content": "content"
+                  },
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "attributes": {
+                "content": " inline."
+              },
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "attributes": {},
+      "children": [
+        {
+          "type": "inline",
+          "attributes": {},
+          "children": [
+            {
+              "type": "tag",
+              "tag": "note",
+              "attributes": {},
+              "children": [
+                {
+                  "type": "text",
+                  "attributes": {
+                    "content": "Inline paragraph tag"
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "attributes": {},
+      "children": [
+        {
+          "type": "inline",
+          "attributes": {},
+          "children": [
+            {
+              "type": "text",
+              "attributes": {
+                "content": "Self closing: "
+              },
+              "children": []
+            },
+            {
+              "type": "tag",
+              "tag": "note",
+              "attributes": {},
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

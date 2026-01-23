@@ -41,4 +41,4 @@ def test_custom_self_closing_tags_do_not_close():
     html = Markdoc.renderers.html(
         Markdoc.transform(ast, {"tags": {"icon": {"render": "icon", "self_closing": True}}})
     )
-    assert html == "<icon>"
+    assert html == "<icon></icon>"

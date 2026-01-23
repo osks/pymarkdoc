@@ -3,9 +3,11 @@ from __future__ import annotations
 import json
 from typing import Any, Dict
 
+from ..ast.variable import MISSING
+
 
 def _truthy(value: Any) -> bool:
-    return value is not False and value is not None
+    return value is not False and value is not None and value is not MISSING
 
 
 def _values(parameters: Dict[Any, Any]) -> list[Any]:
@@ -37,11 +39,16 @@ def _equals(parameters: Dict[Any, Any]) -> bool:
 def _default(parameters: Dict[Any, Any]) -> Any:
     if not isinstance(parameters, dict):
         return parameters
-    return parameters.get(0) if parameters.get(0) is not None else parameters.get(1)
+    first = parameters.get(0)
+    if first is MISSING:
+        return parameters.get(1)
+    return first
 
 
 def _debug(parameters: Dict[Any, Any]) -> str:
     value = parameters.get(0) if isinstance(parameters, dict) else parameters
+    if value is MISSING:
+        return None
     return json.dumps(value, indent=2)
 
 

@@ -1,0 +1,46 @@
+{
+  "type": "document",
+  "attributes": {},
+  "children": [
+    {
+      "type": "tag",
+      "tag": "note",
+      "attributes": {
+        "a": true,
+        "b": false,
+        "c": null,
+        "d": 3,
+        "e": 4.5,
+        "f": "text",
+        "g": [
+          1,
+          2
+        ],
+        "h": {
+          "foo": "bar"
+        }
+      },
+      "children": [
+        {
+          "type": "paragraph",
+          "attributes": {},
+          "children": [
+            {
+              "type": "inline",
+              "attributes": {},
+              "children": [
+                {
+                  "type": "text",
+                  "attributes": {
+                    "content": "Values"
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

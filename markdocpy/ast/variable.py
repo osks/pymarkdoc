@@ -31,15 +31,15 @@ class Variable:
         for segment in self.path:
             if isinstance(current, dict):
                 if segment not in current:
-                    return None
+                    return MISSING
                 current = current[segment]
                 continue
             if isinstance(current, (list, tuple)):
                 if not isinstance(segment, int) or segment < 0 or segment >= len(current):
-                    return None
+                    return MISSING
                 current = current[segment]
                 continue
-            return None
+            return MISSING
         return current
 
 
@@ -51,3 +51,6 @@ def _path_to_string(path: List[Any]) -> str:
         else:
             parts.append(f"[{segment!r}]")
     return ".".join(parts) if parts else ""
+
+
+MISSING = object()

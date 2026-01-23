@@ -1,0 +1,67 @@
+{
+  "type": "document",
+  "attributes": {},
+  "children": [
+    {
+      "type": "paragraph",
+      "attributes": {},
+      "children": [
+        {
+          "type": "inline",
+          "attributes": {},
+          "children": [
+            {
+              "type": "text",
+              "attributes": {
+                "content": "Inline "
+              },
+              "children": []
+            },
+            {
+              "type": "tag",
+              "tag": "note",
+              "attributes": {},
+              "children": [
+                {
+                  "type": "text",
+                  "attributes": {
+                    "content": "Tag"
+                  },
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "attributes": {
+                "content": " and image "
+              },
+              "children": []
+            },
+            {
+              "type": "image",
+              "attributes": {
+                "alt": "Alt",
+                "src": "https://example.com/x.png"
+              },
+              "children": []
+            },
+            {
+              "type": "text",
+              "attributes": {
+                "content": "."
+              },
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tag",
+      "tag": "icon",
+      "attributes": {},
+      "children": []
+    }
+  ]
+}

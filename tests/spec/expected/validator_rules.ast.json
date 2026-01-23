@@ -1,0 +1,87 @@
+{
+  "attributes": {},
+  "children": [
+    {
+      "attributes": {},
+      "children": [
+        {
+          "attributes": {},
+          "children": [
+            {
+              "attributes": {},
+              "children": [],
+              "content": "Text",
+              "tag": null,
+              "type": "text"
+            }
+          ],
+          "content": null,
+          "tag": "panel",
+          "type": "tag"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "paragraph"
+    },
+    {
+      "attributes": {},
+      "children": [
+        {
+          "attributes": {},
+          "children": [
+            {
+              "attributes": {},
+              "children": [
+                {
+                  "attributes": {},
+                  "children": [],
+                  "content": "Nested",
+                  "tag": null,
+                  "type": "text"
+                }
+              ],
+              "content": null,
+              "tag": "note",
+              "type": "tag"
+            }
+          ],
+          "content": null,
+          "tag": "panel",
+          "type": "tag"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "paragraph"
+    },
+    {
+      "attributes": {
+        "title": "A"
+      },
+      "children": [
+        {
+          "attributes": {},
+          "children": [
+            {
+              "attributes": {},
+              "children": [],
+              "content": "Title",
+              "tag": null,
+              "type": "text"
+            }
+          ],
+          "content": null,
+          "tag": null,
+          "type": "paragraph"
+        }
+      ],
+      "content": null,
+      "tag": "panel",
+      "type": "tag"
+    }
+  ],
+  "content": null,
+  "tag": null,
+  "type": "document"
+}

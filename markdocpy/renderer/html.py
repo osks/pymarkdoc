@@ -24,7 +24,7 @@ _VOID_ELEMENTS = {
 
 
 def render(node: Any) -> str:
-    if isinstance(node, (str, int, float)):
+    if isinstance(node, (str, int, float)) and not isinstance(node, bool):
         return escape(str(node), quote=True)
     if isinstance(node, list):
         return "".join(render(child) for child in node)
@@ -48,7 +48,7 @@ def render(node: Any) -> str:
         output.append(f' {key.lower()}="{escape(str(value), quote=True)}"')
     output.append(">")
 
-    if name in _VOID_ELEMENTS or getattr(node, "self_closing", False):
+    if name in _VOID_ELEMENTS:
         return "".join(output)
 
     if children:

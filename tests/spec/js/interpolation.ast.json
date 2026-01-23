@@ -1,0 +1,64 @@
+{
+  "type": "document",
+  "attributes": {},
+  "children": [
+    {
+      "type": "paragraph",
+      "attributes": {},
+      "children": [
+        {
+          "type": "inline",
+          "attributes": {},
+          "children": [
+            {
+              "type": "text",
+              "attributes": {
+                "content": "Hello "
+              },
+              "children": []
+            },
+            {
+              "type": "text",
+              "attributes": {
+                "content": {
+                  "$type": "Variable",
+                  "path": [
+                    "name"
+                  ]
+                }
+              },
+              "children": []
+            },
+            {
+              "type": "softbreak",
+              "attributes": {},
+              "children": []
+            },
+            {
+              "type": "text",
+              "attributes": {
+                "content": "Sum: "
+              },
+              "children": []
+            },
+            {
+              "type": "text",
+              "attributes": {
+                "content": {
+                  "$type": "Function",
+                  "name": "add",
+                  "parameters": {
+                    "0": 1,
+                    "1": 2,
+                    "2": 3
+                  }
+                }
+              },
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

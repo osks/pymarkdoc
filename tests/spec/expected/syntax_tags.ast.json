@@ -1,0 +1,113 @@
+{
+  "attributes": {},
+  "children": [
+    {
+      "attributes": {},
+      "children": [
+        {
+          "attributes": {},
+          "children": [
+            {
+              "attributes": {},
+              "children": [],
+              "content": "Block tag",
+              "tag": null,
+              "type": "text"
+            }
+          ],
+          "content": null,
+          "tag": null,
+          "type": "paragraph"
+        }
+      ],
+      "content": null,
+      "tag": "note",
+      "type": "tag"
+    },
+    {
+      "attributes": {},
+      "children": [
+        {
+          "attributes": {},
+          "children": [],
+          "content": "Inline ",
+          "tag": null,
+          "type": "text"
+        },
+        {
+          "attributes": {},
+          "children": [
+            {
+              "attributes": {},
+              "children": [],
+              "content": "content",
+              "tag": null,
+              "type": "text"
+            }
+          ],
+          "content": null,
+          "tag": "note",
+          "type": "tag"
+        },
+        {
+          "attributes": {},
+          "children": [],
+          "content": " inline.",
+          "tag": null,
+          "type": "text"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "paragraph"
+    },
+    {
+      "attributes": {},
+      "children": [
+        {
+          "attributes": {},
+          "children": [
+            {
+              "attributes": {},
+              "children": [],
+              "content": "Inline paragraph tag",
+              "tag": null,
+              "type": "text"
+            }
+          ],
+          "content": null,
+          "tag": "note",
+          "type": "tag"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "paragraph"
+    },
+    {
+      "attributes": {},
+      "children": [
+        {
+          "attributes": {},
+          "children": [],
+          "content": "Self closing: ",
+          "tag": null,
+          "type": "text"
+        },
+        {
+          "attributes": {},
+          "children": [],
+          "content": null,
+          "tag": "note",
+          "type": "tag"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "paragraph"
+    }
+  ],
+  "content": null,
+  "tag": null,
+  "type": "document"
+}

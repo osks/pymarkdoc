@@ -1,0 +1,121 @@
+{
+  "attributes": {},
+  "children": [
+    {
+      "attributes": {},
+      "children": [
+        {
+          "attributes": {
+            "primary": {
+              "$type": "Function",
+              "name": "and",
+              "parameters": {
+                "args": [
+                  true,
+                  {
+                    "$type": "Function",
+                    "name": "not",
+                    "parameters": {
+                      "args": [
+                        false
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "children": [
+            {
+              "attributes": {},
+              "children": [],
+              "content": "Yes",
+              "tag": null,
+              "type": "text"
+            }
+          ],
+          "content": null,
+          "tag": "if",
+          "type": "tag"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "paragraph"
+    },
+    {
+      "attributes": {},
+      "children": [
+        {
+          "attributes": {},
+          "children": [],
+          "content": "Equals: ",
+          "tag": null,
+          "type": "text"
+        },
+        {
+          "attributes": {
+            "value": {
+              "$type": "Function",
+              "name": "equals",
+              "parameters": {
+                "args": [
+                  1,
+                  1,
+                  1
+                ]
+              }
+            }
+          },
+          "children": [],
+          "content": null,
+          "tag": null,
+          "type": "function"
+        },
+        {
+          "attributes": {},
+          "children": [],
+          "content": "\n",
+          "tag": null,
+          "type": "softbreak"
+        },
+        {
+          "attributes": {},
+          "children": [],
+          "content": "Default: ",
+          "tag": null,
+          "type": "text"
+        },
+        {
+          "attributes": {
+            "value": {
+              "$type": "Function",
+              "name": "default",
+              "parameters": {
+                "args": [
+                  {
+                    "$type": "Variable",
+                    "path": [
+                      "missing"
+                    ]
+                  },
+                  "ok"
+                ]
+              }
+            }
+          },
+          "children": [],
+          "content": null,
+          "tag": null,
+          "type": "function"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "paragraph"
+    }
+  ],
+  "content": null,
+  "tag": null,
+  "type": "document"
+}

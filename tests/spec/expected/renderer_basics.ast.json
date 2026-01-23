@@ -1,0 +1,69 @@
+{
+  "attributes": {},
+  "children": [
+    {
+      "attributes": {},
+      "children": [
+        {
+          "attributes": {},
+          "children": [],
+          "content": "Inline ",
+          "tag": null,
+          "type": "text"
+        },
+        {
+          "attributes": {},
+          "children": [
+            {
+              "attributes": {},
+              "children": [],
+              "content": "Tag",
+              "tag": null,
+              "type": "text"
+            }
+          ],
+          "content": null,
+          "tag": "note",
+          "type": "tag"
+        },
+        {
+          "attributes": {},
+          "children": [],
+          "content": " and image ",
+          "tag": null,
+          "type": "text"
+        },
+        {
+          "attributes": {
+            "alt": "Alt",
+            "src": "https://example.com/x.png"
+          },
+          "children": [],
+          "content": null,
+          "tag": null,
+          "type": "image"
+        },
+        {
+          "attributes": {},
+          "children": [],
+          "content": ".",
+          "tag": null,
+          "type": "text"
+        }
+      ],
+      "content": null,
+      "tag": null,
+      "type": "paragraph"
+    },
+    {
+      "attributes": {},
+      "children": [],
+      "content": null,
+      "tag": "icon",
+      "type": "tag"
+    }
+  ],
+  "content": null,
+  "tag": null,
+  "type": "document"
+}
