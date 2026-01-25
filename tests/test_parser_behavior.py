@@ -32,6 +32,13 @@ def test_inline_tag_spans_softbreaks():
     assert html == '<p>Hello <badge color="green">OK</badge></p>'
 
 
+def test_inline_tag_only_line_does_not_break_paragraph():
+    source = "{% if true %}Yes{% /if %}\nAfter"
+    ast = Markdoc.parse(source)
+    html = Markdoc.renderers.html(Markdoc.transform(ast))
+    assert html == "<p>Yes After</p>"
+
+
 def test_single_quote_with_tag_end_sequence():
     source = "{% note title='50%} ok' %}Body{% /note %}"
     ast = Markdoc.parse(source)

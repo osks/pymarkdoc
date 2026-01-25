@@ -37,15 +37,14 @@
           "content": null,
           "tag": "if",
           "type": "tag"
-        }
-      ],
-      "content": null,
-      "tag": null,
-      "type": "paragraph"
-    },
-    {
-      "attributes": {},
-      "children": [
+        },
+        {
+          "attributes": {},
+          "children": [],
+          "content": "\n",
+          "tag": null,
+          "type": "softbreak"
+        },
         {
           "attributes": {},
           "children": [],

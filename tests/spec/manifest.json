@@ -4,7 +4,7 @@
   {"name": "interpolation"},
   {"name": "values"},
   {"name": "variables_paths"},
-  {"name": "functions_params", "xfail_js": true, "note": "Inline tag line split into separate paragraph by block-tag normalization"},
+  {"name": "functions_params"},
   {"name": "schema_defaults"},
   {"name": "validator_rules"},
   {"name": "renderer_basics"}

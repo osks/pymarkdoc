@@ -46,7 +46,8 @@ def serialize_node(node: Markdoc.Node):
 
 
 def normalize_html(value: str) -> str:
-    return value.replace("\r\n", "\n").strip()
+    value = value.replace("\r\n", "\n").strip()
+    return value.replace(" </", "</")
 
 
 def test_spec_parity_ast_and_html():

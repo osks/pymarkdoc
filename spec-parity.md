@@ -38,4 +38,4 @@ This matrix tracks parity with the Markdoc JS spec and core defaults. Each item 
 - JS output should be generated once and committed
 
 ## Known gaps (tracked as xfail in tests/spec/manifest.json)
-- `functions_params`: inline-tag-only line split into its own paragraph due to block-tag normalization
+- None currently.
