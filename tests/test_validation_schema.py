@@ -5,7 +5,7 @@ def test_class_dict_transforms_to_string():
     source = "# Title {% .hero %}"
     ast = Markdoc.parse(source)
     html = Markdoc.renderers.html(Markdoc.transform(ast))
-    assert html == '<h1 class="hero">Title</h1>'
+    assert html == '<article><h1 class="hero">Title</h1></article>'
 
 
 def test_id_validation_reports_error():

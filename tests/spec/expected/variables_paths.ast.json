@@ -5,7 +5,9 @@
       "attributes": {},
       "children": [
         {
-          "attributes": {},
+          "attributes": {
+            "content": "User: "
+          },
           "children": [],
           "content": "User: ",
           "tag": null,
@@ -34,7 +36,9 @@
           "type": "softbreak"
         },
         {
-          "attributes": {},
+          "attributes": {
+            "content": "Flag: "
+          },
           "children": [],
           "content": "Flag: ",
           "tag": null,

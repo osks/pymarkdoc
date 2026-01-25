@@ -22,7 +22,9 @@
           "attributes": {},
           "children": [
             {
-              "attributes": {},
+              "attributes": {
+                "content": "Values"
+              },
               "children": [],
               "content": "Values",
               "tag": null,

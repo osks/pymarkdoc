@@ -5,7 +5,9 @@
       "attributes": {},
       "children": [
         {
-          "attributes": {},
+          "attributes": {
+            "content": "{% note title=\"oops %}"
+          },
           "children": [],
           "content": "{% note title=\"oops %}",
           "tag": null,

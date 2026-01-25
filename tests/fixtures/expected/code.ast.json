@@ -3,6 +3,7 @@
   "children": [
     {
       "attributes": {
+        "content": "const x = 1;\n",
         "language": "js"
       },
       "children": [],

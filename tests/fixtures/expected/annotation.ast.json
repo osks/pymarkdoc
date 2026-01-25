@@ -8,7 +8,9 @@
       },
       "children": [
         {
-          "attributes": {},
+          "attributes": {
+            "content": "Title "
+          },
           "children": [],
           "content": "Title",
           "tag": null,

@@ -6,7 +6,7 @@ def test_block_tag_wraps_paragraph():
     ast = Markdoc.parse(source)
     content = Markdoc.transform(ast, {"tags": {"note": {"render": "note"}}})
     html = Markdoc.renderers.html(content)
-    assert html == "<note><p>Hello</p></note>"
+    assert html == "<article><note><p>Hello</p></note></article>"
 
 
 def test_annotation_applies_to_heading():
@@ -14,7 +14,7 @@ def test_annotation_applies_to_heading():
     ast = Markdoc.parse(source)
     content = Markdoc.transform(ast)
     html = Markdoc.renderers.html(content)
-    assert html == '<h1 class="hero">Title</h1>'
+    assert html == '<article><h1 class="hero">Title</h1></article>'
 
 
 def test_variable_interpolation():
@@ -22,7 +22,7 @@ def test_variable_interpolation():
     ast = Markdoc.parse(source)
     content = Markdoc.transform(ast, {"variables": {"name": "Ada"}})
     html = Markdoc.renderers.html(content)
-    assert html == "<p>Hello Ada</p>"
+    assert html == "<article><p>Hello Ada</p></article>"
 
 
 def test_function_interpolation():
@@ -34,7 +34,7 @@ def test_function_interpolation():
     ast = Markdoc.parse(source)
     content = Markdoc.transform(ast, {"functions": {"sum": sum_fn}})
     html = Markdoc.renderers.html(content)
-    assert html == "<p>Total 3</p>"
+    assert html == "<article><p>Total 3</p></article>"
 
 
 def test_markdown_table():
@@ -52,7 +52,7 @@ def test_if_else_tag():
     ast = Markdoc.parse(source)
     content = Markdoc.transform(ast, {"variables": {"flag": True}})
     html = Markdoc.renderers.html(content)
-    assert html == "<p>Yes</p>"
+    assert html == "<article><p>Yes</p></article>"
 
 
 def test_fenced_code_block():
@@ -62,7 +62,7 @@ const x = 1;
     ast = Markdoc.parse(source)
     content = Markdoc.transform(ast)
     html = Markdoc.renderers.html(content)
-    assert html == '<pre data-language="js">const x = 1;\n</pre>'
+    assert html == '<article><pre data-language="js">const x = 1;\n</pre></article>'
 
 
 def test_link_and_image():

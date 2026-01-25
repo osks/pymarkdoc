@@ -34,6 +34,14 @@ def transform(node: Node | List[Node], config: Dict[str, Any] | None = None):
     if isinstance(node, list):
         return [transform(child, cfg) for child in node]
     if node.type == "document":
+        schema = _find_schema(node, cfg)
+        if schema and schema.get("render"):
+            return _make_tag(
+                schema.get("render"),
+                _render_attributes(node, schema, cfg),
+                _transform_children(node, cfg),
+                schema,
+            )
         return [transform(child, cfg) for child in node.children]
     if node.type == "text":
         return node.content or ""

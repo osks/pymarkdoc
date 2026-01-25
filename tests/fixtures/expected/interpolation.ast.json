@@ -5,7 +5,9 @@
       "attributes": {},
       "children": [
         {
-          "attributes": {},
+          "attributes": {
+            "content": "Hello "
+          },
           "children": [],
           "content": "Hello ",
           "tag": null,
@@ -33,7 +35,9 @@
           "type": "softbreak"
         },
         {
-          "attributes": {},
+          "attributes": {
+            "content": "Sum: "
+          },
           "children": [],
           "content": "Sum: ",
           "tag": null,

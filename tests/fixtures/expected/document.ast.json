@@ -7,7 +7,9 @@
       },
       "children": [
         {
-          "attributes": {},
+          "attributes": {
+            "content": "Markdoc Py"
+          },
           "children": [],
           "content": "Markdoc Py",
           "tag": null,
@@ -22,7 +24,9 @@
       "attributes": {},
       "children": [
         {
-          "attributes": {},
+          "attributes": {
+            "content": "Intro paragraph with "
+          },
           "children": [],
           "content": "Intro paragraph with ",
           "tag": null,
@@ -32,7 +36,9 @@
           "attributes": {},
           "children": [
             {
-              "attributes": {},
+              "attributes": {
+                "content": "emphasis"
+              },
               "children": [],
               "content": "emphasis",
               "tag": null,
@@ -44,7 +50,9 @@
           "type": "em"
         },
         {
-          "attributes": {},
+          "attributes": {
+            "content": ", "
+          },
           "children": [],
           "content": ", ",
           "tag": null,
@@ -54,7 +62,9 @@
           "attributes": {},
           "children": [
             {
-              "attributes": {},
+              "attributes": {
+                "content": "strong"
+              },
               "children": [],
               "content": "strong",
               "tag": null,
@@ -66,21 +76,27 @@
           "type": "strong"
         },
         {
-          "attributes": {},
+          "attributes": {
+            "content": ", and "
+          },
           "children": [],
           "content": ", and ",
           "tag": null,
           "type": "text"
         },
         {
-          "attributes": {},
+          "attributes": {
+            "content": "inline code"
+          },
           "children": [],
           "content": "inline code",
           "tag": null,
           "type": "code_inline"
         },
         {
-          "attributes": {},
+          "attributes": {
+            "content": "."
+          },
           "children": [],
           "content": ".",
           "tag": null,
@@ -94,7 +110,9 @@
           "type": "softbreak"
         },
         {
-          "attributes": {},
+          "attributes": {
+            "content": "Inline tag "
+          },
           "children": [],
           "content": "Inline tag ",
           "tag": null,
@@ -106,7 +124,9 @@
           },
           "children": [
             {
-              "attributes": {},
+              "attributes": {
+                "content": "New"
+              },
               "children": [],
               "content": "New",
               "tag": null,
@@ -118,7 +138,9 @@
           "type": "tag"
         },
         {
-          "attributes": {},
+          "attributes": {
+            "content": " keeps moving."
+          },
           "children": [],
           "content": " keeps moving.",
           "tag": null,
@@ -138,7 +160,9 @@
           "attributes": {},
           "children": [
             {
-              "attributes": {},
+              "attributes": {
+                "content": "This is a callout with a "
+              },
               "children": [],
               "content": "This is a callout with a ",
               "tag": null,
@@ -150,7 +174,9 @@
               },
               "children": [
                 {
-                  "attributes": {},
+                  "attributes": {
+                    "content": "link"
+                  },
                   "children": [],
                   "content": "link",
                   "tag": null,
@@ -162,7 +188,9 @@
               "type": "link"
             },
             {
-              "attributes": {},
+              "attributes": {
+                "content": "."
+              },
               "children": [],
               "content": ".",
               "tag": null,
@@ -186,7 +214,9 @@
       },
       "children": [
         {
-          "attributes": {},
+          "attributes": {
+            "content": "Media "
+          },
           "children": [],
           "content": "Media",
           "tag": null,
@@ -223,7 +253,9 @@
           "attributes": {},
           "children": [
             {
-              "attributes": {},
+              "attributes": {
+                "content": "Blockquote text continues here."
+              },
               "children": [],
               "content": "Blockquote text continues here.",
               "tag": null,
@@ -245,7 +277,9 @@
       },
       "children": [
         {
-          "attributes": {},
+          "attributes": {
+            "content": "Lists"
+          },
           "children": [],
           "content": "Lists",
           "tag": null,
@@ -268,7 +302,9 @@
               "attributes": {},
               "children": [
                 {
-                  "attributes": {},
+                  "attributes": {
+                    "content": "Alpha"
+                  },
                   "children": [],
                   "content": "Alpha",
                   "tag": null,
@@ -291,7 +327,9 @@
               "attributes": {},
               "children": [
                 {
-                  "attributes": {},
+                  "attributes": {
+                    "content": "Beta"
+                  },
                   "children": [],
                   "content": "Beta",
                   "tag": null,
@@ -314,7 +352,9 @@
                       "attributes": {},
                       "children": [
                         {
-                          "attributes": {},
+                          "attributes": {
+                            "content": "Beta one"
+                          },
                           "children": [],
                           "content": "Beta one",
                           "tag": null,
@@ -337,7 +377,9 @@
                       "attributes": {},
                       "children": [
                         {
-                          "attributes": {},
+                          "attributes": {
+                            "content": "Beta two"
+                          },
                           "children": [],
                           "content": "Beta two",
                           "tag": null,
@@ -380,7 +422,9 @@
               "attributes": {},
               "children": [
                 {
-                  "attributes": {},
+                  "attributes": {
+                    "content": "First"
+                  },
                   "children": [],
                   "content": "First",
                   "tag": null,
@@ -403,7 +447,9 @@
               "attributes": {},
               "children": [
                 {
-                  "attributes": {},
+                  "attributes": {
+                    "content": "Second"
+                  },
                   "children": [],
                   "content": "Second",
                   "tag": null,
@@ -444,7 +490,9 @@
                   "attributes": {},
                   "children": [
                     {
-                      "attributes": {},
+                      "attributes": {
+                        "content": "Name"
+                      },
                       "children": [],
                       "content": "Name",
                       "tag": null,
@@ -459,7 +507,9 @@
                   "attributes": {},
                   "children": [
                     {
-                      "attributes": {},
+                      "attributes": {
+                        "content": "Value"
+                      },
                       "children": [],
                       "content": "Value",
                       "tag": null,
@@ -490,7 +540,9 @@
                   "attributes": {},
                   "children": [
                     {
-                      "attributes": {},
+                      "attributes": {
+                        "content": "One"
+                      },
                       "children": [],
                       "content": "One",
                       "tag": null,
@@ -505,7 +557,9 @@
                   "attributes": {},
                   "children": [
                     {
-                      "attributes": {},
+                      "attributes": {
+                        "content": "1"
+                      },
                       "children": [],
                       "content": "1",
                       "tag": null,
@@ -528,7 +582,9 @@
                   "attributes": {},
                   "children": [
                     {
-                      "attributes": {},
+                      "attributes": {
+                        "content": "Two"
+                      },
                       "children": [],
                       "content": "Two",
                       "tag": null,
@@ -543,7 +599,9 @@
                   "attributes": {},
                   "children": [
                     {
-                      "attributes": {},
+                      "attributes": {
+                        "content": "2"
+                      },
                       "children": [],
                       "content": "2",
                       "tag": null,
@@ -571,6 +629,7 @@
     },
     {
       "attributes": {
+        "content": "const count = 2;\n",
         "language": "js"
       },
       "children": [],

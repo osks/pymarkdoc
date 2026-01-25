@@ -77,8 +77,6 @@ def test_spec_parity_ast_and_html():
         js_html_path = JS_DIR / f"{name}.html"
         if js_html_path.exists():
             js_html = normalize_html(js_html_path.read_text())
-            if js_html.startswith("<article>") and js_html.endswith("</article>"):
-                js_html = js_html[len("<article>") : -len("</article>")]
             js_html = js_html.replace(" </", "</")
             if html != js_html:
                 actual_mismatches.add(name)

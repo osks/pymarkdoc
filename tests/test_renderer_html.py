@@ -26,7 +26,7 @@ def test_nested_tags_render():
     html = Markdoc.renderers.html(
         Markdoc.transform(ast, {"tags": {"note": {"render": "note"}, "tag": {"render": "tag"}}})
     )
-    assert html == "<p><note>Hello <tag>World</tag></note></p>"
+    assert html == "<article><p><note>Hello <tag>World</tag></note></p></article>"
 
 
 def test_boolean_attributes_render_without_value():
@@ -41,4 +41,4 @@ def test_custom_self_closing_tags_do_not_close():
     html = Markdoc.renderers.html(
         Markdoc.transform(ast, {"tags": {"icon": {"render": "icon", "self_closing": True}}})
     )
-    assert html == "<icon></icon>"
+    assert html == "<article><icon></icon></article>"

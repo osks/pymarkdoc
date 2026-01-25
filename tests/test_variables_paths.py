@@ -7,7 +7,7 @@ def test_variable_path_dot_and_bracket():
     html = Markdoc.renderers.html(
         Markdoc.transform(ast, {"variables": {"user": {"name": "Ada"}, "flags": ["on"]}})
     )
-    assert html == "<p>User: Ada Flag: on</p>"
+    assert html == "<article><p>User: Ada Flag: on</p></article>"
 
 
 def test_variable_missing_path_reports_error():

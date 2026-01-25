@@ -7,7 +7,9 @@
       },
       "children": [
         {
-          "attributes": {},
+          "attributes": {
+            "content": "Heading"
+          },
           "children": [],
           "content": "Heading",
           "tag": null,
@@ -30,7 +32,9 @@
               "attributes": {},
               "children": [
                 {
-                  "attributes": {},
+                  "attributes": {
+                    "content": "One"
+                  },
                   "children": [],
                   "content": "One",
                   "tag": null,
@@ -53,7 +57,9 @@
               "attributes": {},
               "children": [
                 {
-                  "attributes": {},
+                  "attributes": {
+                    "content": "Two"
+                  },
                   "children": [],
                   "content": "Two",
                   "tag": null,
@@ -87,7 +93,9 @@
                   "attributes": {},
                   "children": [
                     {
-                      "attributes": {},
+                      "attributes": {
+                        "content": "A"
+                      },
                       "children": [],
                       "content": "A",
                       "tag": null,
@@ -102,7 +110,9 @@
                   "attributes": {},
                   "children": [
                     {
-                      "attributes": {},
+                      "attributes": {
+                        "content": "B"
+                      },
                       "children": [],
                       "content": "B",
                       "tag": null,
@@ -133,7 +143,9 @@
                   "attributes": {},
                   "children": [
                     {
-                      "attributes": {},
+                      "attributes": {
+                        "content": "1"
+                      },
                       "children": [],
                       "content": "1",
                       "tag": null,
@@ -148,7 +160,9 @@
                   "attributes": {},
                   "children": [
                     {
-                      "attributes": {},
+                      "attributes": {
+                        "content": "2"
+                      },
                       "children": [],
                       "content": "2",
                       "tag": null,
@@ -176,6 +190,7 @@
     },
     {
       "attributes": {
+        "content": "const x = 1;\n",
         "language": "js"
       },
       "children": [],

@@ -5,7 +5,9 @@
       "attributes": {},
       "children": [
         {
-          "attributes": {},
+          "attributes": {
+            "content": "Before"
+          },
           "children": [],
           "content": "Before",
           "tag": null,
@@ -32,7 +34,9 @@
       "attributes": {},
       "children": [
         {
-          "attributes": {},
+          "attributes": {
+            "content": "After"
+          },
           "children": [],
           "content": "After",
           "tag": null,

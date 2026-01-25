@@ -8,14 +8,14 @@ def _render(source: str) -> str:
 
 def test_builtin_and_or_not_equals():
     source = "{% if and(true, not(false), equals(1, 1)) %}Yes{% /if %}"
-    assert _render(source) == "<p>Yes</p>"
+    assert _render(source) == "<article><p>Yes</p></article>"
 
 
 def test_builtin_default():
     source = "{% if default($flag, true) %}On{% /if %}"
     ast = Markdoc.parse(source)
     html = Markdoc.renderers.html(Markdoc.transform(ast, {"variables": {}}))
-    assert html == "<p>On</p>"
+    assert html == "<article><p>On</p></article>"
 
 
 def test_builtin_debug():

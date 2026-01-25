@@ -27,7 +27,9 @@
           },
           "children": [
             {
-              "attributes": {},
+              "attributes": {
+                "content": "Yes"
+              },
               "children": [],
               "content": "Yes",
               "tag": null,
@@ -54,7 +56,9 @@
           },
           "children": [
             {
-              "attributes": {},
+              "attributes": {
+                "content": "Equals"
+              },
               "children": [],
               "content": "Equals",
               "tag": null,
@@ -85,7 +89,9 @@
           },
           "children": [
             {
-              "attributes": {},
+              "attributes": {
+                "content": "Default"
+              },
               "children": [],
               "content": "Default",
               "tag": null,
@@ -105,7 +111,9 @@
       "attributes": {},
       "children": [
         {
-          "attributes": {},
+          "attributes": {
+            "content": "Debug: "
+          },
           "children": [],
           "content": "Debug: ",
           "tag": null,

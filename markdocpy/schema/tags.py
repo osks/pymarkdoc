@@ -77,6 +77,8 @@ def _transform_partial(node: Node, config: Dict[str, Any]):
 
     def transform_part(part: Node):
         resolved = part.resolve(scoped)
+        if resolved.type == "document":
+            return [transform(child, scoped) for child in resolved.children]
         return transform(resolved, scoped)
 
     if isinstance(partial, list):

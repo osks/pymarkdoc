@@ -8,7 +8,9 @@
           "attributes": {},
           "children": [
             {
-              "attributes": {},
+              "attributes": {
+                "content": "Block tag"
+              },
               "children": [],
               "content": "Block tag",
               "tag": null,
@@ -28,7 +30,9 @@
       "attributes": {},
       "children": [
         {
-          "attributes": {},
+          "attributes": {
+            "content": "Inline "
+          },
           "children": [],
           "content": "Inline ",
           "tag": null,
@@ -38,7 +42,9 @@
           "attributes": {},
           "children": [
             {
-              "attributes": {},
+              "attributes": {
+                "content": "content"
+              },
               "children": [],
               "content": "content",
               "tag": null,
@@ -50,7 +56,9 @@
           "type": "tag"
         },
         {
-          "attributes": {},
+          "attributes": {
+            "content": " inline."
+          },
           "children": [],
           "content": " inline.",
           "tag": null,
@@ -68,7 +76,9 @@
           "attributes": {},
           "children": [
             {
-              "attributes": {},
+              "attributes": {
+                "content": "Inline paragraph tag"
+              },
               "children": [],
               "content": "Inline paragraph tag",
               "tag": null,
@@ -88,7 +98,9 @@
       "attributes": {},
       "children": [
         {
-          "attributes": {},
+          "attributes": {
+            "content": "Self closing: "
+          },
           "children": [],
           "content": "Self closing: ",
           "tag": null,

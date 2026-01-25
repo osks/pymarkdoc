@@ -8,7 +8,7 @@ def test_partial_renders_content_with_variables():
     html = Markdoc.renderers.html(
         Markdoc.transform(ast, {"partials": {"header.md": partial}, "variables": {"name": "Base"}})
     )
-    assert html == "<h1>Title</h1><p>Hello Ada</p>"
+    assert html == "<article><h1>Title</h1><p>Hello Ada</p></article>"
 
 
 def test_partial_missing_reports_error():
@@ -25,4 +25,4 @@ def test_partial_list_renders_all_nodes():
     html = Markdoc.renderers.html(
         Markdoc.transform(ast, {"partials": {"combo.md": partial_nodes}})
     )
-    assert html == "<h1>One</h1><p>Two</p>"
+    assert html == "<article><h1>One</h1><p>Two</p></article>"

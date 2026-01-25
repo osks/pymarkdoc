@@ -7,7 +7,9 @@
       },
       "children": [
         {
-          "attributes": {},
+          "attributes": {
+            "content": "Hello"
+          },
           "children": [],
           "content": "Hello",
           "tag": null,
@@ -22,7 +24,9 @@
       "attributes": {},
       "children": [
         {
-          "attributes": {},
+          "attributes": {
+            "content": "Simple text."
+          },
           "children": [],
           "content": "Simple text.",
           "tag": null,

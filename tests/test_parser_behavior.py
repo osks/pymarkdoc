@@ -13,14 +13,14 @@ Body
     html = Markdoc.renderers.html(
         Markdoc.transform(ast, {"tags": {"note": {"render": "note", "attributes": {"title": {}}}}})
     )
-    assert html == '<note title="A"><p>Body</p></note>'
+    assert html == '<article><note title="A"><p>Body</p></note></article>'
 
 
 def test_multiline_annotation_on_paragraph():
     source = "Title {%\n  .hero\n%}"
     ast = Markdoc.parse(source)
     html = Markdoc.renderers.html(Markdoc.transform(ast))
-    assert html == '<p class="hero">Title</p>'
+    assert html == '<article><p class="hero">Title</p></article>'
 
 
 def test_inline_tag_spans_softbreaks():
@@ -29,14 +29,14 @@ def test_inline_tag_spans_softbreaks():
     html = Markdoc.renderers.html(
         Markdoc.transform(ast, {"tags": {"badge": {"render": "badge", "attributes": {"color": {}}}}})
     )
-    assert html == '<p>Hello <badge color="green">OK</badge></p>'
+    assert html == '<article><p>Hello <badge color="green">OK</badge></p></article>'
 
 
 def test_inline_tag_only_line_does_not_break_paragraph():
     source = "{% if true %}Yes{% /if %}\nAfter"
     ast = Markdoc.parse(source)
     html = Markdoc.renderers.html(Markdoc.transform(ast))
-    assert html == "<p>Yes After</p>"
+    assert html == "<article><p>Yes After</p></article>"
 
 
 def test_single_quote_with_tag_end_sequence():
@@ -45,14 +45,14 @@ def test_single_quote_with_tag_end_sequence():
     html = Markdoc.renderers.html(
         Markdoc.transform(ast, {"tags": {"note": {"render": "note", "attributes": {"title": {}}}}})
     )
-    assert html == '<p><note title="50%} ok">Body</note></p>'
+    assert html == '<article><p><note title="50%} ok">Body</note></p></article>'
 
 
 def test_annotation_on_paragraph():
     source = "Hello {% .hero %}"
     ast = Markdoc.parse(source)
     html = Markdoc.renderers.html(Markdoc.transform(ast))
-    assert html == '<p class="hero">Hello</p>'
+    assert html == '<article><p class="hero">Hello</p></article>'
 
 
 def test_slot_with_nested_tag_content():

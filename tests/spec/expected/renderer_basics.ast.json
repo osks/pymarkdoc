@@ -5,7 +5,9 @@
       "attributes": {},
       "children": [
         {
-          "attributes": {},
+          "attributes": {
+            "content": "Inline "
+          },
           "children": [],
           "content": "Inline ",
           "tag": null,
@@ -15,7 +17,9 @@
           "attributes": {},
           "children": [
             {
-              "attributes": {},
+              "attributes": {
+                "content": "Tag"
+              },
               "children": [],
               "content": "Tag",
               "tag": null,
@@ -27,7 +31,9 @@
           "type": "tag"
         },
         {
-          "attributes": {},
+          "attributes": {
+            "content": " and image "
+          },
           "children": [],
           "content": " and image ",
           "tag": null,
@@ -44,7 +50,9 @@
           "type": "image"
         },
         {
-          "attributes": {},
+          "attributes": {
+            "content": "."
+          },
           "children": [],
           "content": ".",
           "tag": null,

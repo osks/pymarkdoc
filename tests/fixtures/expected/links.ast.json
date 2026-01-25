@@ -10,7 +10,9 @@
           },
           "children": [
             {
-              "attributes": {},
+              "attributes": {
+                "content": "Link"
+              },
               "children": [],
               "content": "Link",
               "tag": null,
@@ -22,7 +24,9 @@
           "type": "link"
         },
         {
-          "attributes": {},
+          "attributes": {
+            "content": " "
+          },
           "children": [],
           "content": " ",
           "tag": null,

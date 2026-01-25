@@ -13,7 +13,9 @@
               "attributes": {},
               "children": [
                 {
-                  "attributes": {},
+                  "attributes": {
+                    "content": "One"
+                  },
                   "children": [],
                   "content": "One",
                   "tag": null,
@@ -36,7 +38,9 @@
               "attributes": {},
               "children": [
                 {
-                  "attributes": {},
+                  "attributes": {
+                    "content": "Two"
+                  },
                   "children": [],
                   "content": "Two",
                   "tag": null,

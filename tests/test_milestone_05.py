@@ -6,4 +6,4 @@ def test_milestone_05_simple_parse_transform():
     ast = Markdoc.parse(source)
     content = Markdoc.transform(ast, {"tags": {"note": {"render": "note"}}})
     html = Markdoc.renderers.html(content)
-    assert html == "<h1>Hello</h1><p>This is <note>important</note>.</p>"
+    assert html == "<article><h1>Hello</h1><p>This is <note>important</note>.</p></article>"

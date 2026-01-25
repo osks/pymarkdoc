@@ -27,7 +27,9 @@
           },
           "children": [
             {
-              "attributes": {},
+              "attributes": {
+                "content": "Yes"
+              },
               "children": [],
               "content": "Yes",
               "tag": null,
@@ -46,7 +48,9 @@
           "type": "softbreak"
         },
         {
-          "attributes": {},
+          "attributes": {
+            "content": "Equals: "
+          },
           "children": [],
           "content": "Equals: ",
           "tag": null,
@@ -79,7 +83,9 @@
           "type": "softbreak"
         },
         {
-          "attributes": {},
+          "attributes": {
+            "content": "Default: "
+          },
           "children": [],
           "content": "Default: ",
           "tag": null,

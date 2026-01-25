@@ -123,9 +123,13 @@ def _node_from_open_token(token: Token) -> Node:
 
 def _node_from_single_token(token: Token) -> Node | None:
     if token.type == "fence":
-        return Node("fence", content=token.content, attributes={"language": token.info.strip()})
+        return Node(
+            "fence",
+            content=token.content,
+            attributes={"language": token.info.strip(), "content": token.content},
+        )
     if token.type == "code_block":
-        return Node("code", content=token.content)
+        return Node("code", content=token.content, attributes={"content": token.content})
     if token.type == "hr":
         return Node("hr")
     return None
@@ -166,7 +170,7 @@ def _parse_inline_tokens(tokens: List[Token], *, slots: bool, parent: Node) -> L
                     parts = node.content.split("\n")
                     for index, part in enumerate(parts):
                         if part:
-                            append_node(Node("text", content=part))
+                            append_node(Node("text", content=part, attributes={"content": part}))
                         if index < len(parts) - 1:
                             append_node(Node("softbreak", content="\n"))
                 else:
@@ -175,7 +179,9 @@ def _parse_inline_tokens(tokens: List[Token], *, slots: bool, parent: Node) -> L
         if token.type == "hardbreak":
             append_node(Node("hardbreak", content="\n"))
         elif token.type == "code_inline":
-            append_node(Node("code_inline", content=token.content))
+            append_node(
+                Node("code_inline", content=token.content, attributes={"content": token.content})
+            )
         elif token.type == "em_open":
             stack.append((Node("em"), []))
         elif token.type == "em_close":
@@ -254,7 +260,7 @@ def _parse_inline_text(text: str, *, slots: bool, parent: Node) -> List[Node]:
     def add_text(value: str) -> None:
         if not value:
             return
-        node = Node("text", content=value)
+        node = Node("text", content=value, attributes={"content": value})
         if stack:
             stack[-1][2].append(node)
         else:

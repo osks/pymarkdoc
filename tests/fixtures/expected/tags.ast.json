@@ -10,7 +10,9 @@
           "attributes": {},
           "children": [
             {
-              "attributes": {},
+              "attributes": {
+                "content": "Body"
+              },
               "children": [],
               "content": "Body",
               "tag": null,
