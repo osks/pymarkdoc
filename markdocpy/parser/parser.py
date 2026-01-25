@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from typing import Dict, List, Tuple
 
 from markdown_it.token import Token
@@ -115,9 +116,9 @@ def _node_from_open_token(token: Token) -> Node:
     if token.type == "tr_open":
         return Node("tr")
     if token.type == "th_open":
-        return Node("th")
+        return Node("th", attributes=_table_cell_attrs(token))
     if token.type == "td_open":
-        return Node("td")
+        return Node("td", attributes=_table_cell_attrs(token))
     return Node(token.type)
 
 
@@ -249,6 +250,20 @@ def _attrs_to_dict(attrs) -> Dict[str, str]:
     if isinstance(attrs, dict):
         return dict(attrs)
     return {key: value for key, value in attrs}
+
+
+def _table_cell_attrs(token: Token) -> Dict[str, str]:
+    attrs = _attrs_to_dict(token.attrs)
+    style = attrs.get("style")
+    if not style:
+        return attrs
+    match = re.search(r"text-align\s*:\s*(left|right|center)", style)
+    if not match:
+        return attrs
+    normalized = dict(attrs)
+    normalized.pop("style", None)
+    normalized["align"] = match.group(1)
+    return normalized
 
 
 def _parse_inline_text(text: str, *, slots: bool, parent: Node) -> List[Node]:

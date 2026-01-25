@@ -33,6 +33,23 @@ def spec_configs():
         },
         "renderer_basics": {"tags": {"note": {"render": "note"}, "icon": {"render": "icon", "self_closing": True}}},
         "schema_defaults": {},
+        "nested_tags": {
+            "tags": {
+                "note": {"render": "note"},
+                "button": {"render": "button", "inline": True},
+            }
+        },
+        "attribute_defaults": {
+            "tags": {
+                "badge": {
+                    "render": "span",
+                    "attributes": {
+                        "tone": {"default": "info"},
+                        "label": {"required": True},
+                    },
+                }
+            }
+        },
         "syntax_tags": {"tags": {"note": {"render": "note"}}},
         "annotations": {},
         "values": {"tags": {"note": {"render": "note"}}},

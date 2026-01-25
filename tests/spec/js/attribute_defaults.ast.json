@@ -1,0 +1,14 @@
+{
+  "type": "document",
+  "attributes": {},
+  "children": [
+    {
+      "type": "tag",
+      "tag": "badge",
+      "attributes": {
+        "label": "New"
+      },
+      "children": []
+    }
+  ]
+}

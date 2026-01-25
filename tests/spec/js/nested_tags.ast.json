@@ -1,0 +1,53 @@
+{
+  "type": "document",
+  "attributes": {},
+  "children": [
+    {
+      "type": "tag",
+      "tag": "note",
+      "attributes": {},
+      "children": [
+        {
+          "type": "paragraph",
+          "attributes": {},
+          "children": [
+            {
+              "type": "inline",
+              "attributes": {},
+              "children": [
+                {
+                  "type": "text",
+                  "attributes": {
+                    "content": "Here is "
+                  },
+                  "children": []
+                },
+                {
+                  "type": "tag",
+                  "tag": "button",
+                  "attributes": {},
+                  "children": [
+                    {
+                      "type": "text",
+                      "attributes": {
+                        "content": "Click"
+                      },
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "attributes": {
+                    "content": " inside."
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

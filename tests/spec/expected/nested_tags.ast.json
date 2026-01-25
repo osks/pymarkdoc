@@ -1,0 +1,59 @@
+{
+  "attributes": {},
+  "children": [
+    {
+      "attributes": {},
+      "children": [
+        {
+          "attributes": {},
+          "children": [
+            {
+              "attributes": {
+                "content": "Here is "
+              },
+              "children": [],
+              "content": "Here is ",
+              "tag": null,
+              "type": "text"
+            },
+            {
+              "attributes": {},
+              "children": [
+                {
+                  "attributes": {
+                    "content": "Click"
+                  },
+                  "children": [],
+                  "content": "Click",
+                  "tag": null,
+                  "type": "text"
+                }
+              ],
+              "content": null,
+              "tag": "button",
+              "type": "tag"
+            },
+            {
+              "attributes": {
+                "content": " inside."
+              },
+              "children": [],
+              "content": " inside.",
+              "tag": null,
+              "type": "text"
+            }
+          ],
+          "content": null,
+          "tag": null,
+          "type": "paragraph"
+        }
+      ],
+      "content": null,
+      "tag": "note",
+      "type": "tag"
+    }
+  ],
+  "content": null,
+  "tag": null,
+  "type": "document"
+}

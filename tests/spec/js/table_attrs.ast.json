@@ -1,0 +1,120 @@
+{
+  "type": "document",
+  "attributes": {},
+  "children": [
+    {
+      "type": "table",
+      "attributes": {},
+      "children": [
+        {
+          "type": "thead",
+          "attributes": {},
+          "children": [
+            {
+              "type": "tr",
+              "attributes": {},
+              "children": [
+                {
+                  "type": "th",
+                  "attributes": {
+                    "align": "left"
+                  },
+                  "children": [
+                    {
+                      "type": "inline",
+                      "attributes": {},
+                      "children": [
+                        {
+                          "type": "text",
+                          "attributes": {
+                            "content": "A"
+                          },
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "th",
+                  "attributes": {
+                    "align": "right"
+                  },
+                  "children": [
+                    {
+                      "type": "inline",
+                      "attributes": {},
+                      "children": [
+                        {
+                          "type": "text",
+                          "attributes": {
+                            "content": "B"
+                          },
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "tbody",
+          "attributes": {},
+          "children": [
+            {
+              "type": "tr",
+              "attributes": {},
+              "children": [
+                {
+                  "type": "td",
+                  "attributes": {
+                    "align": "left"
+                  },
+                  "children": [
+                    {
+                      "type": "inline",
+                      "attributes": {},
+                      "children": [
+                        {
+                          "type": "text",
+                          "attributes": {
+                            "content": "Left"
+                          },
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "td",
+                  "attributes": {
+                    "align": "right"
+                  },
+                  "children": [
+                    {
+                      "type": "inline",
+                      "attributes": {},
+                      "children": [
+                        {
+                          "type": "text",
+                          "attributes": {
+                            "content": "Right"
+                          },
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

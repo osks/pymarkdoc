@@ -67,6 +67,25 @@
               ]
             }
           ]
+        },
+        {
+          "type": "item",
+          "attributes": {},
+          "children": [
+            {
+              "type": "inline",
+              "attributes": {},
+              "children": [
+                {
+                  "type": "text",
+                  "attributes": {
+                    "content": "Three"
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -163,6 +182,50 @@
                           "type": "text",
                           "attributes": {
                             "content": "2"
+                          },
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tr",
+              "attributes": {},
+              "children": [
+                {
+                  "type": "td",
+                  "attributes": {},
+                  "children": [
+                    {
+                      "type": "inline",
+                      "attributes": {},
+                      "children": [
+                        {
+                          "type": "text",
+                          "attributes": {
+                            "content": "3"
+                          },
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "td",
+                  "attributes": {},
+                  "children": [
+                    {
+                      "type": "inline",
+                      "attributes": {},
+                      "children": [
+                        {
+                          "type": "text",
+                          "attributes": {
+                            "content": "4"
                           },
                           "children": []
                         }

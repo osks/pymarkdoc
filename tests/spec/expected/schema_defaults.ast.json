@@ -74,6 +74,31 @@
           "content": null,
           "tag": null,
           "type": "item"
+        },
+        {
+          "attributes": {},
+          "children": [
+            {
+              "attributes": {},
+              "children": [
+                {
+                  "attributes": {
+                    "content": "Three"
+                  },
+                  "children": [],
+                  "content": "Three",
+                  "tag": null,
+                  "type": "text"
+                }
+              ],
+              "content": null,
+              "tag": null,
+              "type": "paragraph"
+            }
+          ],
+          "content": null,
+          "tag": null,
+          "type": "item"
         }
       ],
       "content": null,
@@ -165,6 +190,48 @@
                       },
                       "children": [],
                       "content": "2",
+                      "tag": null,
+                      "type": "text"
+                    }
+                  ],
+                  "content": null,
+                  "tag": null,
+                  "type": "td"
+                }
+              ],
+              "content": null,
+              "tag": null,
+              "type": "tr"
+            },
+            {
+              "attributes": {},
+              "children": [
+                {
+                  "attributes": {},
+                  "children": [
+                    {
+                      "attributes": {
+                        "content": "3"
+                      },
+                      "children": [],
+                      "content": "3",
+                      "tag": null,
+                      "type": "text"
+                    }
+                  ],
+                  "content": null,
+                  "tag": null,
+                  "type": "td"
+                },
+                {
+                  "attributes": {},
+                  "children": [
+                    {
+                      "attributes": {
+                        "content": "4"
+                      },
+                      "children": [],
+                      "content": "4",
                       "tag": null,
                       "type": "text"
                     }
