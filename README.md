@@ -8,6 +8,14 @@ Documentation: https://osks.github.io/markdoc-py/markdocpy.html
 
 This project is under active development. Core parsing, transforming, and HTML rendering are implemented, with fixture-based tests and JS parity fixtures.
 
+## JS parity notes
+
+The Python port intentionally tracks JS Markdoc behavior, but some differences can exist while parity work is in progress. To see what is currently covered and any known gaps:
+
+- `spec-parity.md` explains the parity scope and lists tracked gaps.
+- `tests/spec/manifest.json` marks known JS mismatches with `xfail_js`.
+- `tests/test_spec_parity.py` enforces parity against committed JS outputs.
+
 ## Requirements
 
 - Python 3.13+
